@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MoveScript : MonoBehaviour
 {
+    public GameObject player;
     Rigidbody rb;
 
     public float moveSpeed;
+    public float maxVelocity;
 
 	// Use this for initialization
 	void Start ()
@@ -20,12 +22,14 @@ public class MoveScript : MonoBehaviour
 		if (Input.GetAxis("Vertical") != 0)
         {
             float speed = moveSpeed * Input.GetAxis("Vertical");
-            transform.position += transform.forward * speed * Time.deltaTime;
+            rb.AddForce(player.transform.forward * speed);
         }
         if (Input.GetAxis("Horizontal") != 0)
         {
             float speed = moveSpeed * Input.GetAxis("Horizontal");
-            transform.position += transform.right * speed * Time.deltaTime;
+            rb.AddForce(player.transform.right * speed);
         }
+
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 }
