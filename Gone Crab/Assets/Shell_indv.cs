@@ -12,26 +12,98 @@ public class Shell_indv : MonoBehaviour {
 
     private float Maxspac = 1.3f;
 
+    private float Size;
+    private float Pdistance;
+    private float ActiveDistance = 10;
+    private GameObject player;
 
-   // public bool isAcceptable;
-    // Use this for initialization
-	void Start () {
-		
-	}
+    private Renderer rend; 
+
+    private Color Green = new Color32(0,197,50,255);
+    private Color Yellow = new Color32(197, 192, 0, 255);
+    private Color Orange = new Color32(255, 132, 0, 255);
+    private Color Red = new Color32(255,0,0,255);
+
+    void Start ()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        rend = GetComponent<Renderer>();
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+        ChecksAgainstPlayer();
+        PrettyLights();
 	}
 
+    private void ChecksAgainstPlayer()
+    {
+        Pdistance = Vector3.Distance(this.transform.position, player.transform.position);
+
+        Size = transform.localScale.x / player.transform.localScale.x;
+    }
 
     public bool isAcceptable()
     {
-        if (true)
+        string shellV = ShellState();
+        if (shellV == "UNACCEPTABLE")
         {
-            return true;
+            return false;
         }
         else
-            return false;
+            return true;
+    }
+
+
+    public string ShellState()
+    {
+        if (Size < Maxspac && Size > MinSpac )
+        {
+            return "Spacious";
+        }
+        if (Size < MinSpac && Size > Minavg)
+        {
+            return "Average";
+        }
+        if (Size < Minavg && Size > Mintight)
+        {
+            return "Tight";
+        }
+
+        else
+        return "UNACCEPTABLE";
+    }
+
+
+    private void PrettyLights()
+    {
+       
+        if (Pdistance >= ActiveDistance)
+        {
+            rend.material.SetColor("_Color", Color.white);
+        }
+        string colourcheck = ShellState();
+        if (Pdistance <= ActiveDistance)
+        {
+            if (colourcheck == "Spacious")
+            {
+                rend.material.SetColor("_Color", Green);
+            }
+            if (colourcheck == "Average")
+            {
+                rend.material.SetColor("_Color", Yellow);
+            }
+            if (colourcheck == "Tight")
+            {
+                rend.material.SetColor("_Color", Orange);
+            }
+            else
+            {
+                rend.material.SetColor("_Color", Red);
+            }
+        }
+        
+
+        
     }
 }
