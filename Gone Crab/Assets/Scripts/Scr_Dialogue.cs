@@ -21,6 +21,7 @@ public class Scr_Dialogue : MonoBehaviour
     public string[] tightShellLines;
     public string[] popShellLines;
     public string[] halfCookLines;
+    public string[] removeShellLines;
     public string fallingLine;
 
 	// Use this for initialization
@@ -51,15 +52,15 @@ public class Scr_Dialogue : MonoBehaviour
     {
         if (index == 0)
         {
-            diaText.text = spaciousShellLines[Random.Range(0, spaciousShellLines.Length - 1)];
+            diaText.text = spaciousShellLines[Random.Range(0, spaciousShellLines.Length)];
         }
         else if (index == 1)
         {
-            diaText.text = averageShellLines[Random.Range(0, averageShellLines.Length - 1)];
+            diaText.text = averageShellLines[Random.Range(0, averageShellLines.Length)];
         }
         else if (index == 2)
         {
-            diaText.text = tightShellLines[Random.Range(0, tightShellLines.Length - 1)];
+            diaText.text = tightShellLines[Random.Range(0, tightShellLines.Length)];
         }
         else if (index == 3)
         {
@@ -67,15 +68,19 @@ public class Scr_Dialogue : MonoBehaviour
         }
         else if (index == 4)
         {
-            diaText.text = popShellLines[Random.Range(0, popShellLines.Length - 1)];
+            diaText.text = popShellLines[Random.Range(0, popShellLines.Length)];
         }
         else if (index == 5)
         {
-            diaText.text = halfCookLines[Random.Range(0, halfCookLines.Length - 1)];
+            diaText.text = halfCookLines[Random.Range(0, halfCookLines.Length)];
         }
         else if (index == 6)
         {
             diaText.text = fallingLine;
+        }
+        else if (index == 7)
+        {
+            diaText.text = removeShellLines[Random.Range(0, removeShellLines.Length)];
         }
 
         diaTimer = diaCooldown;

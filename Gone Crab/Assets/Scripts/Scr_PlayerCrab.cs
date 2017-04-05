@@ -125,7 +125,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
             PickupShell();
         else if (Input.GetMouseButtonDown(1))
+        {
             RemoveShell();
+            dialogueController.DisplayLine(7);
+        }
     }
 
     void PickupShell()
@@ -153,7 +156,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if(MyShell != null)
         {
             Destroy(MyShell.gameObject);
-            dialogueController.DisplayLine(4);
         }
     }
 
@@ -175,7 +177,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if (MyShell != null)
         {
             if (!MyShell.isAcceptable())
+            {
                 RemoveShell();
+                dialogueController.DisplayLine(4);
+            }
         }
     }
 
@@ -224,7 +229,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if (bInAirLastFrame && !inAir)
         {
             if (FallenTooFar)
+            {
                 RemoveShell();
+                dialogueController.DisplayLine(4);
+            } 
         }
         else if(inAir == false)
             StoredHeight = this.transform.position.y;
