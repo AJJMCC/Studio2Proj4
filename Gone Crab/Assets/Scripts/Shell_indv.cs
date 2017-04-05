@@ -41,7 +41,6 @@ public class Shell_indv : MonoBehaviour {
         Pdistance = Vector3.Distance(this.transform.position, player.transform.position);
 
         Size = this.transform.localScale.x / player.transform.localScale.x;
-        Debug.Log(Size);
     }
 
     public bool isAcceptable()

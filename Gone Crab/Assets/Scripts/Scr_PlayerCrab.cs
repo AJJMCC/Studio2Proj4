@@ -35,6 +35,16 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float maxSize = 11.0f;
     [SerializeField]
     private float camScaleMod = 0.75f;
+    [SerializeField]
+    private float BurnTimerMax = 100.0f;
+    [SerializeField]
+    private float BurnDrainSpeed = 1.0f;
+    [SerializeField]
+    private float BurnHealSpeed = 10.0f;
+    #endregion
+
+    #region Private Variables
+    private float BurnTimer;
     #endregion
 
     // Use this for initialization
@@ -42,19 +52,21 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         rb = this.GetComponent<Rigidbody>();
         SetCrabSize(0);
+        BurnTimer = BurnTimerMax;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-
-        // Shell Interact
+        // Big boi found new home <3
         ShellInteract();
-        // Shell Update
+        // Kicked out of home RIP
         ShellUpdate();
         // Grow up big and strong!
         GrowthByTime();
-	}
+        // Ouch dats hot REEE
+        UpdateBurn();
+    }
 
     void FixedUpdate()
     {
@@ -157,5 +169,27 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if (MyShell != null)
             SetCrabSize(this.transform.localScale.x + (growthRate * Time.deltaTime));
+    }
+
+    void UpdateBurn()
+    {
+        Debug.Log(BurnTimer);
+        if (MyShell == null)
+        {
+            BurnTimer -= BurnDrainSpeed * Time.deltaTime;
+            if(BurnTimer <= 0)
+            {
+                BurnTimer = 0;
+                Debug.Log("KILL");
+            }
+        }
+        else
+        {
+            BurnTimer += BurnHealSpeed * Time.deltaTime;
+            if (BurnTimer >= BurnTimerMax)
+            {
+                BurnTimer = BurnTimerMax;
+            }
+        }
     }
 }
