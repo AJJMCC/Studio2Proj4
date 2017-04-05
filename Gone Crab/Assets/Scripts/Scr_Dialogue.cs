@@ -17,6 +17,12 @@ public class Scr_Dialogue : MonoBehaviour
     private float diaTimer;
 
     public string[] diaLines;
+    public string[] spaciousShellLines;
+    public string[] averageShellLines;
+    public string[] tightShellLines;
+    public string[] popShellLines;
+    public string[] halfCookLines;
+    public string fallingLine;
 
 	// Use this for initialization
 	void Start ()
@@ -28,8 +34,8 @@ public class Scr_Dialogue : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        diaCanvas.transform.localPosition = new Vector3(0, canvasPosCoEf, 0) * playerModel.transform.localScale.x;      // Set the canvas Y position to be relative to the player model scale
-        diaBG.transform.localScale = playerModel.transform.localScale * textScaleCoEf;                                // Set the text scale to be relative to the player model scale
+        diaCanvas.transform.localPosition = new Vector3(0, canvasPosCoEf, 0) * playerModel.transform.localScale.x;     // Set the canvas Y position to be relative to the player model scale
+        diaBG.transform.localScale = playerModel.transform.localScale * textScaleCoEf;                                  // Set the text scale to be relative to the player model scale
 
         TextAlpha();
         ImageAlpha();
@@ -43,27 +49,40 @@ public class Scr_Dialogue : MonoBehaviour
             isActive = false;
             diaTimer = diaCooldown;
         }
-
-        if (Input.GetKeyDown("f"))
-        {
-            DisplayLine(0);
-        }
-
-        if (Input.GetKeyDown("g"))
-        {
-            DisplayLine(1);
-        }
-
-        if (Input.GetKeyDown("h"))
-        {
-            DisplayLine(2);
-        }
     }
 
     public void DisplayLine (int index)
     {
-        diaText.text = diaLines[index];             // Set the text string to the correct line
-        isActive = true;                            // Enables the text alpha
+        if (index == 0)
+        {
+            diaText.text = spaciousShellLines[Random.Range(0, spaciousShellLines.Length - 1)];
+        }
+        else if (index == 1)
+        {
+            diaText.text = averageShellLines[Random.Range(0, averageShellLines.Length - 1)];
+        }
+        else if (index == 2)
+        {
+            diaText.text = tightShellLines[Random.Range(0, tightShellLines.Length - 1)];
+        }
+        else if (index == 3)
+        {
+            diaText.text = diaLines[0];
+        }
+        else if (index == 4)
+        {
+            diaText.text = popShellLines[Random.Range(0, popShellLines.Length - 1)];
+        }
+        else if (index == 5)
+        {
+            diaText.text = halfCookLines[Random.Range(0, halfCookLines.Length - 1)];
+        }
+        else if (index == 6)
+        {
+            diaText.text = fallingLine;
+        }
+
+        isActive = true;
     }
 
     void TextAlpha ()
