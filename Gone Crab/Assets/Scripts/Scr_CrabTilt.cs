@@ -35,6 +35,8 @@ public class Scr_CrabTilt : MonoBehaviour {
                  Vector3.Cross(rf.point - Vector3.up, rr.point - Vector3.up)
                 ).normalized;
 
+        upDir.y = 0;
+
         transform.up = upDir;
 
         Debug.DrawRay(rr.point, Vector3.up, Color.white, 1000);

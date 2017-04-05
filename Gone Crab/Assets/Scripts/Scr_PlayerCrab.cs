@@ -56,26 +56,29 @@ public class Scr_PlayerCrab : MonoBehaviour {
         float ControlY = Input.GetAxis("Horizontal") * -1.0f;
 
         // Add Input Movement
-        //rb.MovePosition(rb.position + ((ControlVector * this.transform.forward) * groundSpeed * Time.deltaTime));
         // X Update
         rb.MovePosition(rb.position + this.transform.forward * (ControlY * groundSpeed * Time.deltaTime));
         // Y Update
         rb.MovePosition(rb.position + this.transform.right * (ControlX * groundSpeed * Time.deltaTime));
+        // Clamp Vel
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
 
         // Updating Rotation
-        Vector3 targRot = new Vector3(0, 0, 0);
+        Quaternion t = Quaternion.identity;
         if(ControlX != 0 || ControlY != 0)
         {
-            targRot.y = CameraBoom.transform.rotation.eulerAngles.y;
+            t = CameraBoom.transform.rotation;
         }
         else
         {
-            targRot.y = this.transform.rotation.eulerAngles.y;
+            t = this.transform.rotation;
         }
-        Quaternion myRot = this.transform.rotation;
-        myRot.eulerAngles = Vector3.Lerp(this.transform.rotation.eulerAngles, targRot, turningSpeed * Time.deltaTime);
-        this.transform.rotation = myRot;
+        t = Quaternion.Lerp(this.transform.rotation, t, turningSpeed * Time.deltaTime);
+        Vector3 r = t.eulerAngles;
+        r.x = 0;
+        r.z = 0;
+        t.eulerAngles = r;
+        this.transform.rotation = t;
     }
 
     // Handles Shell equipping and dropping when manually called by the player.

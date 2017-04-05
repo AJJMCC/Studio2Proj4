@@ -39,7 +39,6 @@ public class Shell_indv : MonoBehaviour {
     private void ChecksAgainstPlayer()
     {
         Pdistance = Vector3.Distance(this.transform.position, player.transform.position);
-        Debug.Log(Pdistance);
 
         Size = transform.localScale.x / player.transform.localScale.x;
     }
@@ -82,7 +81,6 @@ public class Shell_indv : MonoBehaviour {
         if (Pdistance >= ActiveDistance)
         {
             rend.material.SetColor("_Color", Color.white);
-            Debug.Log("set to white");
         }
 
         string colourcheck = ShellState();
@@ -103,9 +101,7 @@ public class Shell_indv : MonoBehaviour {
             }
             else
             {
-                Debug.Log("change to red");
                 rend.material.SetColor("_Color", Red);
-                Debug.Log("said change to red");
             }
         }
         
