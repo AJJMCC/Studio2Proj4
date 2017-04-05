@@ -8,14 +8,13 @@ public class Scr_Dialogue : MonoBehaviour
     public GameObject playerModel;
     public Canvas diaCanvas;
     public Text diaText;
-    public Image diaBG;
 
     private bool isActive;
-    public float canvasPosCoEf;
-    public float textScaleCoEf;
     public float diaCooldown;
     private float diaTimer;
+    public float textFadeSpeed;
 
+    // Arrays that store dialogue lines
     public string[] diaLines;
     public string[] spaciousShellLines;
     public string[] averageShellLines;
@@ -35,7 +34,6 @@ public class Scr_Dialogue : MonoBehaviour
 	void Update ()
     {
         TextAlpha();
-        ImageAlpha();
 
         if (isActive && diaTimer > 0)
         {
@@ -48,6 +46,7 @@ public class Scr_Dialogue : MonoBehaviour
         }
     }
 
+    // Public function that is called from outside scripts, displays a random line from the given array chosen by the index parameter
     public void DisplayLine (int index)
     {
         if (index == 0)
@@ -79,38 +78,24 @@ public class Scr_Dialogue : MonoBehaviour
             diaText.text = fallingLine;
         }
 
+        diaTimer = diaCooldown;
         isActive = true;
     }
 
+    // Fades the text alpha in and out which is determined by the isActive bool
     void TextAlpha ()
     {
         if (isActive && diaText.color.a < 1)
         {
             Color alphaFade = diaText.color;
-            alphaFade.a += Time.deltaTime;
+            alphaFade.a += textFadeSpeed * Time.deltaTime;
             diaText.color = alphaFade;
         }
         else if (!isActive && diaText.color.a > 0)
         {
             Color alphaFade = diaText.color;
-            alphaFade.a -= Time.deltaTime;
+            alphaFade.a -= textFadeSpeed * Time.deltaTime;
             diaText.color = alphaFade;
-        }
-    }
-
-    void ImageAlpha ()
-    {
-        if (isActive && diaBG.color.a < 1)
-        {
-            Color alphaFade = diaBG.color;
-            alphaFade.a += Time.deltaTime;
-            diaBG.color = alphaFade;
-        }
-        else if (!isActive && diaBG.color.a > 0)
-        {
-            Color alphaFade = diaBG.color;
-            alphaFade.a -= Time.deltaTime;
-            diaBG.color = alphaFade;
         }
     }
 }
