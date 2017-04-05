@@ -41,10 +41,14 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float BurnDrainSpeed = 1.0f;
     [SerializeField]
     private float BurnHealSpeed = 10.0f;
+    [SerializeField]
+    private float FallDamageMinDist = 5.0f;
     #endregion
 
     #region Private Variables
     private float BurnTimer;
+    private bool bInAirLastFrame = false;
+    private float StoredHeight = 0.0f;
     #endregion
 
     // Use this for initialization
@@ -66,6 +70,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
         GrowthByTime();
         // Ouch dats hot REEE
         UpdateBurn();
+        // He did a bit humpty dumpty
+        FallDamageUpdate();
     }
 
     void FixedUpdate()
@@ -173,7 +179,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void UpdateBurn()
     {
-        Debug.Log(BurnTimer);
         if (MyShell == null)
         {
             BurnTimer -= BurnDrainSpeed * Time.deltaTime;
@@ -191,5 +196,20 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 BurnTimer = BurnTimerMax;
             }
         }
+    }
+
+    void FallDamageUpdate()
+    {
+        bool inAir = rb.velocity.y <= -2.0f;
+
+        if (bInAirLastFrame && !inAir)
+        {
+            if (StoredHeight - this.transform.position.y >= FallDamageMinDist * this.transform.localScale.x/2)
+                RemoveShell();
+        }
+        else if(inAir == false)
+            StoredHeight = this.transform.position.y;
+
+        bInAirLastFrame = inAir;
     }
 }
