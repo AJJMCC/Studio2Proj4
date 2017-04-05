@@ -9,7 +9,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     [SerializeField]
     private GameObject CameraBoom;
     [SerializeField]
-    private GameObject MyShell;
+    private Shell_indv MyShell;
     [SerializeField]
     private GameObject ShellSocket;
     #endregion
@@ -18,6 +18,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     [SerializeField]
     private float groundSpeed = 10.0f;
     [SerializeField]
+    private float speedModifier = 10.0f;
+    [SerializeField]
     private float maxVelocity = 50.0f;
     [SerializeField]
     private float turningSpeed = 10.0f;
@@ -25,27 +27,39 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float shellSizeThreshold = 1.0f;
     [SerializeField]
     private float interactDistance = 1.0f;
+    [SerializeField]
+    private float growthRate = 1.0f;
+    [SerializeField]
+    private float minSize = 0.5f;
+    [SerializeField]
+    private float maxSize = 11.0f;
+    [SerializeField]
+    private float camScaleMod = 0.75f;
     #endregion
 
     // Use this for initialization
     void Start ()
     {
         rb = this.GetComponent<Rigidbody>();
+        SetCrabSize(0);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+
+        // Shell Interact
+        ShellInteract();
+        // Shell Update
+        ShellUpdate();
+        // Grow up big and strong!
+        GrowthByTime();
 	}
 
     void FixedUpdate()
     {
         // Call Control function
         Control();
-        // Shell Interact
-        ShellInteract();
-        // Shell Update
-        ShellUpdate();
     }
 
     // Updates the position of the crab by taking input from the player
@@ -57,11 +71,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
         // Add Input Movement
         // X Update
-        rb.MovePosition(rb.position + this.transform.forward * (ControlY * groundSpeed * Time.deltaTime));
+        rb.MovePosition(rb.position + this.transform.forward * (ControlY * (groundSpeed * (this.transform.localScale.x * speedModifier)) * Time.deltaTime));
         // Y Update
-        rb.MovePosition(rb.position + this.transform.right * (ControlX * groundSpeed * Time.deltaTime));
+        rb.MovePosition(rb.position + this.transform.right * (ControlX * (groundSpeed * (this.transform.localScale.x * speedModifier)) * Time.deltaTime));
         // Clamp Vel
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity * (this.transform.localScale.x * speedModifier));
 
         // Updating Rotation
         Quaternion t = Quaternion.identity;
@@ -94,13 +108,13 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if (MyShell == null)
         {
-            GameObject[] ShellsOnMap = GameObject.FindGameObjectsWithTag("ShellPickup");
-            foreach (GameObject shell in ShellsOnMap)
+            Shell_indv[] ShellsOnMap = FindObjectsOfType<Shell_indv>();
+            foreach (Shell_indv shell in ShellsOnMap)
             {
                 //DistCheck && Size Check
-                if (Vector3.Distance(this.transform.position, shell.transform.position) < interactDistance && Mathf.Abs(shell.transform.localScale.x - this.transform.localScale.x) < shellSizeThreshold)
+                if (Vector3.Distance(this.transform.position, shell.transform.position) < interactDistance * this.transform.localScale.x && shell.isAcceptable())
                 {
-                    shell.GetComponent<Collider>().enabled = false;
+                    shell.gameObject.GetComponent<Collider>().enabled = false;
                     MyShell = shell;
                     break;
                 }                
@@ -113,7 +127,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if(MyShell != null)
         {
-            Destroy(MyShell);
+            Destroy(MyShell.gameObject);
         }
     }
 
@@ -121,8 +135,27 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if (MyShell != null)
         {
-            MyShell.transform.position = ShellSocket.transform.position;
-            MyShell.transform.rotation = ShellSocket.transform.rotation;
+            MyShell.gameObject.transform.position = ShellSocket.transform.position;
+            MyShell.gameObject.transform.rotation = ShellSocket.transform.rotation;
         }
+    }
+
+    void SetCrabSize(float newSize)
+    {
+        float sizeNorm = Mathf.Clamp(newSize, minSize, maxSize);
+        this.transform.localScale = Vector3.one * sizeNorm;
+        CameraBoom.transform.localScale = Vector3.one * sizeNorm / camScaleMod;
+
+        if (MyShell != null)
+        {
+            if (!MyShell.isAcceptable())
+                RemoveShell();
+        }
+    }
+
+    void GrowthByTime()
+    {
+        if (MyShell != null)
+            SetCrabSize(this.transform.localScale.x + (growthRate * Time.deltaTime));
     }
 }

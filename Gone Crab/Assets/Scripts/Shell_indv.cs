@@ -16,7 +16,8 @@ public class Shell_indv : MonoBehaviour {
     private float Pdistance;
     private float ActiveDistance = 10;
     private GameObject player;
-
+    
+    [SerializeField]
     private Renderer rend; 
 
     private Color Green = new Color32(0,197,50,255);
@@ -27,7 +28,6 @@ public class Shell_indv : MonoBehaviour {
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        rend = GetComponent<Renderer>();
     }
 	
 	void Update ()
@@ -40,7 +40,8 @@ public class Shell_indv : MonoBehaviour {
     {
         Pdistance = Vector3.Distance(this.transform.position, player.transform.position);
 
-        Size = transform.localScale.x / player.transform.localScale.x;
+        Size = this.transform.localScale.x / player.transform.localScale.x;
+        Debug.Log(Size);
     }
 
     public bool isAcceptable()
@@ -57,15 +58,15 @@ public class Shell_indv : MonoBehaviour {
 
     public string ShellState()
     {
-        if (Size < Maxspac && Size > MinSpac )
+        if (Size <= Maxspac && Size >= MinSpac )
         {
             return "Spacious";
         }
-        if (Size < MinSpac && Size > Minavg)
+        if (Size <= MinSpac && Size >= Minavg)
         {
             return "Average";
         }
-        if (Size < Minavg && Size > Mintight)
+        if (Size <= Minavg && Size >= Mintight)
         {
             return "Tight";
         }
