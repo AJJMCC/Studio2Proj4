@@ -12,6 +12,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private Shell_indv MyShell;
     [SerializeField]
     private GameObject ShellSocket;
+    private Scr_Dialogue dialogueController;
     #endregion
 
     #region Serialized Fields
@@ -47,13 +48,16 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     #region Private Variables
     private float BurnTimer;
+    private bool bSaidHalfbakedLine = false;
     private bool bInAirLastFrame = false;
     private float StoredHeight = 0.0f;
+    private string MyShellState;
     #endregion
 
     // Use this for initialization
     void Start ()
     {
+        dialogueController = FindObjectOfType<Scr_Dialogue>();
         rb = this.GetComponent<Rigidbody>();
         SetCrabSize(0);
         BurnTimer = BurnTimerMax;
@@ -72,6 +76,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
         UpdateBurn();
         // He did a bit humpty dumpty
         FallDamageUpdate();
+        // Baby gon do the first worderinos <3 <3
+        DialougeUpdate();
     }
 
     void FixedUpdate()
@@ -134,6 +140,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 {
                     shell.gameObject.GetComponent<Collider>().enabled = false;
                     MyShell = shell;
+                    MyShellState = "";
                     break;
                 }                
             }
@@ -146,6 +153,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if(MyShell != null)
         {
             Destroy(MyShell.gameObject);
+            dialogueController.DisplayLine(4);
         }
     }
 
@@ -182,10 +190,15 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if (MyShell == null)
         {
             BurnTimer -= BurnDrainSpeed * Time.deltaTime;
-            if(BurnTimer <= 0)
+            if (BurnTimer <= 0)
             {
                 BurnTimer = 0;
                 Debug.Log("KILL");
+            }
+            else if (BurnTimer < BurnTimerMax / 2 && !bSaidHalfbakedLine)
+            {
+                dialogueController.DisplayLine(5);
+                bSaidHalfbakedLine = true;
             }
         }
         else
@@ -195,21 +208,66 @@ public class Scr_PlayerCrab : MonoBehaviour {
             {
                 BurnTimer = BurnTimerMax;
             }
+            else if (BurnTimer > BurnTimerMax / 2)
+                bSaidHalfbakedLine = false;
         }
     }
 
     void FallDamageUpdate()
     {
         bool inAir = rb.velocity.y <= -2.0f;
+        bool FallenTooFar = StoredHeight -this.transform.position.y >= FallDamageMinDist * this.transform.localScale.x / 2;
+
+        if(inAir && FallenTooFar)
+            dialogueController.DisplayLine(6);
 
         if (bInAirLastFrame && !inAir)
         {
-            if (StoredHeight - this.transform.position.y >= FallDamageMinDist * this.transform.localScale.x/2)
+            if (FallenTooFar)
                 RemoveShell();
         }
         else if(inAir == false)
             StoredHeight = this.transform.position.y;
 
         bInAirLastFrame = inAir;
+    }
+
+    void DialougeUpdate()
+    {
+        if (MyShell != null)
+        {
+            if (MyShellState != MyShell.ShellState())
+            {
+                if (MyShell.ShellState() == "Spacious")
+                {
+                    dialogueController.DisplayLine(0);
+                }
+                else if (MyShell.ShellState() == "Average")
+                {
+                    dialogueController.DisplayLine(1);
+                }
+                else if (MyShell.ShellState() == "Tight")
+                {
+                    dialogueController.DisplayLine(2);
+                }
+
+                MyShellState = MyShell.ShellState();
+            }
+        }
+    }
+
+    void OnCollisionEnter(Collision otherObj)
+    {
+        if (otherObj.transform.tag == "EndBound")
+        {
+            if (this.transform.localScale.x < maxSize)
+            {
+                dialogueController.DisplayLine(3);
+            }
+            else if (this.transform.localScale.x >= maxSize)
+            {
+                otherObj.collider.isTrigger = true;
+            }
+        }
     }
 }

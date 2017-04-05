@@ -34,9 +34,6 @@ public class Scr_Dialogue : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        diaCanvas.transform.localPosition = new Vector3(0, canvasPosCoEf, 0) * playerModel.transform.localScale.x;     // Set the canvas Y position to be relative to the player model scale
-        diaBG.transform.localScale = playerModel.transform.localScale * textScaleCoEf;                                  // Set the text scale to be relative to the player model scale
-
         TextAlpha();
         ImageAlpha();
 
