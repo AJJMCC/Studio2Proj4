@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 69ad3ac63a8f0444aba0f07ed82fac9d
+timeCreated: 1491555192
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Beach Resort
+  fontNames:
+  - Beach Resort
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
