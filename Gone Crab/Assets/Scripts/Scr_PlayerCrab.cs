@@ -278,4 +278,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
             }
         }
     }
+
+    public float GetShellSize()
+    {
+        return MyShell.gameObject.transform.localScale.x;
+    }
 }
