@@ -7,8 +7,14 @@ public class genv2 : MonoBehaviour
 
     //Public Variables
     public int ObjectsToSpawn;
+
+    //this gameobject needs to be dragged on itself so it can see what areas it can spawn objects
     public GameObject[] TerrainObjects;
+
+    //this variable will be used to name the spawned object
     public string SpawnedItemName;
+
+    //these strings will be used to say what tags these objects can spawn on
     public string ObjectsWillSpawnOnTag1;
     public string ObjectsWillSpawnOnTag2;
     public string ObjectsWillSpawnOnTag3;
@@ -22,23 +28,21 @@ public class genv2 : MonoBehaviour
     private float BoxZ;
     private float BoxY;
 
+    //variables for min / max scaling of the spawned objects (Chosen Randomly)
     public float MinSize = 1;
     public float MaxSize = 1;
 
+    //bool to enable the destroy on overlap function
     public bool DestroyOverlap = true;
+    //how far it will delete overlapped objects
     public float SpawnCollisionDeleteRadius = 1;
 
     //raycast variables
     private RaycastHit RayhitObject;
 
-
     //Object Spawn Height offset
     public float SpawnedItemHeightOffset = 1;
 
-
-
-
-    //private variables
 
     //working with x and y for placement
     public GameObject TerrainPlacement = null;
@@ -75,7 +79,8 @@ public class genv2 : MonoBehaviour
                         newobject.transform.localScale = new Vector3(newobject.transform.localScale.x * RND2, newobject.transform.localScale.y * RND2, newobject.transform.localScale.z * RND2);
 
                         newobject.transform.position = new Vector3(TerrainPlacement.transform.position.x, RayhitObject.point.y + newobject.transform.localScale.y / 2 - SpawnedItemHeightOffset, TerrainPlacement.transform.position.z);
-
+                        //added random rotation on spawn
+                        newobject.transform.Rotate(Vector3.up * Random.Range(0,360));
                         newobject.name = SpawnedItemName;
 
                         //dont forget the layer has to exsist
