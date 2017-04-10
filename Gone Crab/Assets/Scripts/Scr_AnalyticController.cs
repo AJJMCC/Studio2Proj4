@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class Scr_AnalyticController : MonoBehaviour {
 
-    struct ChunkData{
+    public struct ChunkData{
         public Vector3 playerPos;
         public float CurrentShellSize;
         public int NumShellsLost;
@@ -27,6 +28,9 @@ public class Scr_AnalyticController : MonoBehaviour {
     #region Serialized Fields
     [SerializeField]
     private float ChunkDataDumpInterval = 15.0f; // The period between when dump data is collected.
+    [SerializeField]
+    private string DumpFile = "/Dump/AnalyticsDump"; // The period between when dump data is collected.
+    private string DumpFileExtension = ".csv"; // The period between when dump data is collected.
     #endregion
 
     #region Private Fields
@@ -37,26 +41,30 @@ public class Scr_AnalyticController : MonoBehaviour {
     private int NumberOfNewAverageShells = 0;
     private int NumberOfNewLooseShells = 0;
     private int NewShellsThisChunk = 0;
+    private float MaxTimeSpentWithoutShell = 0.0f;
     #endregion
 
     #region Public Fields
-    public float PlaySessionLength;
-    public bool DidPlayerFinish;
-    public int TimesTakenFallDamage;
-    public int TimesOutgrownShell;
-    public float MaxTimeSpentWithoutShell;
+    public float PlaySessionLength = 0.0f;
+    public bool DidPlayerFinish = false;
+    public int TimesTakenFallDamage = 0;
+    public int TimesOutgrownShell = 0;
+    public float CurrentTimeSpentWithoutShell = 0.0f;
     #endregion
 
     // Use this for initialization
     void Start () {
         Analytics = this;
-        CrabRef = FindObjectOfType<Scr_PlayerCrab>();
+        CrabRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Scr_PlayerCrab>();
         ChunkDataDumpTimer = ChunkDataDumpInterval;
     }
 	
 	// Update is called once per frame
 	void Update () {
         ChunkDataUpdate();
+
+        if (Input.GetKey(KeyCode.F1))
+            WriteDataToCSV();
 	}
 
     void ChunkDataUpdate()
@@ -75,19 +83,55 @@ public class Scr_AnalyticController : MonoBehaviour {
 
     void WriteDataToCSV()
     {
-        // OverallData
+        // Getting the Path
+        string dataPath = Application.dataPath + DumpFile;
+        int num = 0;
+        while(Directory.Exists(dataPath + num.ToString() + DumpFileExtension))
+        {
+            num++;
+        }
 
+        dataPath = dataPath + num.ToString() + DumpFileExtension;
+        StreamWriter writer = new StreamWriter(dataPath);
+
+        // OverallData
+        writer.WriteLine("#OverallData");
         // PlaySessionLength
+        writer.WriteLine("PlaySessionLength," + PlaySessionLength.ToString());
         // DidPlayerFinish
+        writer.WriteLine("DidPlayerFinish," + DidPlayerFinish.ToString());
         // NumberOfNewShells
+        writer.WriteLine("NumberOfNewShells," + NumberOfNewShells.ToString());
         // NumberOfNewTightShells
+        writer.WriteLine("NumberOfNewTightShells," + NumberOfNewTightShells.ToString());
         // NumberOfNewAverageShells
+        writer.WriteLine("NumberOfNewAverageShells," + NumberOfNewAverageShells.ToString());
         // NumberOfNewLooseShells
+        writer.WriteLine("NumberOfNewLooseShells," + NumberOfNewLooseShells.ToString());
         // TimesTakenFallDamage
+        writer.WriteLine("TimesTakenFallDamage," + TimesTakenFallDamage.ToString());
         // TimesOutgrownShell
+        writer.WriteLine("TimesOutgrownShell," + TimesOutgrownShell.ToString());
         // MaxTimeSpentWithoutShell
+        writer.WriteLine("MaxTimeSpentWithoutShell," + MaxTimeSpentWithoutShell.ToString());
+
+        writer.WriteLine("");
 
         // Chunk Data
+        writer.WriteLine("#OverallData");
+
+        int i = 0;
+
+        foreach(ChunkData cd in chunkDataList)
+        {
+            writer.WriteLine("#Chunk " + i.ToString());
+            writer.WriteLine("Position," + cd.playerPos.x.ToString() + "," + cd.playerPos.z.ToString());
+            writer.WriteLine("CurrentShellSize," + cd.CurrentShellSize.ToString());
+            writer.WriteLine("NumShellsLost," + cd.NumShellsLost.ToString());
+        }
+
+        writer.Flush();
+        writer.Close();
     }
 
     public void ReportOnShell(string ShellState)
@@ -97,5 +141,14 @@ public class Scr_AnalyticController : MonoBehaviour {
         else if (ShellState == "Average") NumberOfNewAverageShells++;
         else if (ShellState == "Spacious") NumberOfNewLooseShells++;
         NewShellsThisChunk++;
+    }
+
+    public void CheckTimeSpentNaked()
+    {
+        if (CurrentTimeSpentWithoutShell > MaxTimeSpentWithoutShell)
+        {
+            MaxTimeSpentWithoutShell = CurrentTimeSpentWithoutShell;
+            CurrentTimeSpentWithoutShell = 0.0f;
+        }
     }
 }

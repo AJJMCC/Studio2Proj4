@@ -89,7 +89,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     // Updates the position of the crab by taking input from the player
     void Control()
     {
-        // TODO: Get this infor from our Input Script (P = 0)
+        // TODO: Get this infor from our Input Script
         float ControlX = Input.GetAxis("Vertical");
         float ControlY = Input.GetAxis("Horizontal") * -1.0f;
 
@@ -144,6 +144,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
                     shell.gameObject.GetComponent<Collider>().enabled = false;
                     MyShell = shell;
                     MyShellState = "";
+                    Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
+                    Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
                     break;
                 }                
             }
@@ -166,6 +168,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
             MyShell.gameObject.transform.position = ShellSocket.transform.position;
             MyShell.gameObject.transform.rotation = ShellSocket.transform.rotation;
         }
+        else
+            Scr_AnalyticController.Analytics.CurrentTimeSpentWithoutShell += Time.deltaTime;
     }
 
     void SetCrabSize(float newSize)
@@ -179,6 +183,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             if (!MyShell.isAcceptable())
             {
                 RemoveShell();
+                Scr_AnalyticController.Analytics.TimesOutgrownShell++;
                 dialogueController.DisplayLine(4);
             }
         }
@@ -231,6 +236,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             if (FallenTooFar)
             {
                 RemoveShell();
+                Scr_AnalyticController.Analytics.TimesTakenFallDamage++;
                 dialogueController.DisplayLine(4);
             } 
         }
@@ -281,6 +287,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     public float GetShellSize()
     {
-        return MyShell.gameObject.transform.localScale.x;
+        if (MyShell)
+            return MyShell.gameObject.transform.localScale.x;
+        else
+            return -1.0f;
     }
 }
