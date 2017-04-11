@@ -7,8 +7,10 @@ using UnityEngine.SceneManagement;
 public class Scr_UIController : MonoBehaviour
 {
     int currentSelection = 1;
+    bool isPaused = false;
     public Image selectImage;
     public Button[] menuButtons;
+    public GameObject menu;
     //public float selectSpeed;
 
 	// Use this for initialization
@@ -32,27 +34,66 @@ public class Scr_UIController : MonoBehaviour
             ChangeSelection(0);
         }
 
+        // Calls the select function corresponding to the current level when submit is pressed
         if (Input.GetButtonDown("Submit"))
         {
-            if (currentSelection == 1)
+            if (SceneManager.GetActiveScene().buildIndex == 0)
             {
-                OnStart();
+                MainMenuSelect();
             }
-            else if (currentSelection == 2)
+            else if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                OnOptions();
-            }
-            else if (currentSelection == 3)
-            {
-                OnCredits();
-            }
-            else if (currentSelection == 4)
-            {
-                OnQuit();
+                InLevelSelect();
             }
         }
-	}
 
+        // Pauses and unpauses the main level when cancel is pressed
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 1 && isPaused)
+            {
+                OnResume();
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 1 && !isPaused)
+            {
+                OnPause();
+            }
+        }
+    }
+
+    // Checks the selected button and calls the corresponding function in the main menu
+    void MainMenuSelect ()
+    {
+        if (currentSelection == 1)
+        {
+            LoadScene(1);
+        }
+        else if (currentSelection == 2)
+        {
+            OnOptions();
+        }
+        else if (currentSelection == 3)
+        {
+            OnCredits();
+        }
+        else if (currentSelection == 4)
+        {
+            OnQuit();
+        }
+    }
+
+    // Checks the selected button and calls the corresponding function in the pause menu
+    void InLevelSelect ()
+    {
+        if (currentSelection == 1)
+        {
+            OnResume();
+        }
+        else if (currentSelection == 2)
+        {
+            LoadScene(0);
+        }
+    }
     // Sets the current selection to the given parameter, moves the selection image to the current selection position
     public void MouseOver (int buttonNum)
     {
@@ -75,9 +116,9 @@ public class Scr_UIController : MonoBehaviour
     }
 
     // Loads the main scene
-    public void OnStart ()
+    public void LoadScene (int index)
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(index);
     }
 
     // Opens the options menu
@@ -96,5 +137,21 @@ public class Scr_UIController : MonoBehaviour
     public void OnQuit ()
     {
         Application.Quit();
+    }
+
+    // Activates the pause menu and sets time scale to zero
+    public void OnPause ()
+    {
+        menu.SetActive(true);
+        isPaused = true;
+        Time.timeScale = 0;
+    }
+
+    // Deactivates the pause menu and sets the time scale to one
+    public void OnResume ()
+    {
+        menu.SetActive(false);
+        isPaused = false;
+        Time.timeScale = 1;
     }
 }
