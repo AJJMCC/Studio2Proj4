@@ -64,7 +64,7 @@ public class Scr_Dialogue : MonoBehaviour
         }
         else if (index == 3)
         {
-            diaText.text = diaLines[0];
+            diaText.text = diaLines[Random.Range(0, diaLines.Length)];
         }
         else if (index == 4)
         {

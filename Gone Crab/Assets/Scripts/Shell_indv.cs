@@ -14,6 +14,7 @@ public class Shell_indv : MonoBehaviour {
 
     private float Size;
     private float Pdistance;
+    public float ScaleActiveDist;
     private float ActiveDistance = 10;
     private GameObject player;
     
@@ -32,6 +33,8 @@ public class Shell_indv : MonoBehaviour {
 	
 	void Update ()
     {
+        ActiveDistance = ScaleActiveDist * player.transform.localScale.x;
+
         ChecksAgainstPlayer();
         PrettyLights();
 	}
