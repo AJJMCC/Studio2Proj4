@@ -17,10 +17,12 @@ public class MouseLock : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            FindObjectOfType<Scr_PlayerCrab>().bControlLocked = false;
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             mouseLocked = !mouseLocked;
+            FindObjectOfType<Scr_PlayerCrab>().bControlLocked = true;
         }
     }
 }

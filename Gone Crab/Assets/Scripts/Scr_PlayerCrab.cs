@@ -61,6 +61,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private bool ShellDoneLerp = false;
     #endregion
 
+    public bool bControlLocked = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -68,12 +70,12 @@ public class Scr_PlayerCrab : MonoBehaviour {
         rb = this.GetComponent<Rigidbody>();
         SetCrabSize(0);
         BurnTimer = BurnTimerMax;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (FindObjectOfType<MouseLock>().mouseLocked)
+        if (bControlLocked)
         {
             // Big boi found new home <3
             ShellInteract();
@@ -151,20 +153,34 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 //DistCheck && Size Check
                 if (Vector3.Distance(this.transform.position, shell.transform.position) < interactDistance * this.transform.localScale.x && shell.isAcceptable())
                 {
-                    shell.gameObject.GetComponent<Collider>().enabled = false;
-                    shell.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    MyShell = shell;
-                    ShellDoneLerp = false;
-                    MyShellState = "";
-                    if (Scr_AnalyticController.Analytics)
+                    if (shell.tag == "Boat")
                     {
-                        Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
-                        Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
+                        BoardVessel();
+                        break;
                     }
-                    break;
+                    else
+                    {
+                        shell.gameObject.GetComponent<Collider>().enabled = false;
+                        shell.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        MyShell = shell;
+                        ShellDoneLerp = false;
+                        MyShellState = "";
+                        if (Scr_AnalyticController.Analytics)
+                        {
+                            Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
+                            Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
+                        }
+                        break;
+                    }
                 }                
             }
         }
+    }
+
+    void BoardVessel()
+    {
+        Scr_BoatShell boat = (Scr_BoatShell)MyShell;
+        boat.CalledByPlayer();
     }
 
     // Todo: This is just shit and temp lmao

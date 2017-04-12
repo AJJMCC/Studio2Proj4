@@ -30,7 +30,7 @@ public class Scr_CameraScript : MonoBehaviour
 
     void Update()
     {
-        if (FindObjectOfType<MouseLock>().mouseLocked)
+        if (FindObjectOfType<Scr_PlayerCrab>().bControlLocked)
         {
             rotAverageY = 0f;
             rotAverageX = 0f;
