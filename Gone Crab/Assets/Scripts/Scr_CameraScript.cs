@@ -72,9 +72,9 @@ public class Scr_CameraScript : MonoBehaviour
             Quaternion xQuaternion = Quaternion.AngleAxis(rotAverageX, Vector3.up);
 
             transform.localRotation = originalRotation * xQuaternion * yQuaternion;
-
-            transform.position = FollowGO.transform.position;
         }
+
+        transform.position = FollowGO.transform.position;
     }
 
     void Start()
