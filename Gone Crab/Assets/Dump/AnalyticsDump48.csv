@@ -1,0 +1,36 @@
+#OverallData
+PlaySessionLength,0
+DidPlayerFinish,False
+NumberOfNewShells,13
+NumberOfNewTightShells,8
+NumberOfNewAverageShells,4
+NumberOfNewLooseShells,1
+TimesTakenFallDamage,0
+TimesOutgrownShell,1
+MaxTimeSpentWithoutShell,50.9924
+
+#OverallData
+#Chunk 0
+Position,32.43929,47.99841
+CurrentShellSize,0.6
+NumShellsLost,1
+#Chunk 0
+Position,31.37195,47.73464
+CurrentShellSize,0.6
+NumShellsLost,4
+#Chunk 0
+Position,30.56921,49.22411
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.79065,49.57418
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.78635,49.57584
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,35.19002,48.4473
+CurrentShellSize,-1
+NumShellsLost,3

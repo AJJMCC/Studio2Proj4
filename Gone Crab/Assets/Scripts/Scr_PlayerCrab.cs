@@ -176,9 +176,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 Destroy(MyShell.gameObject);
             else
             {
-                MyShell.gameObject.GetComponent<Collider>().enabled = true;
-                MyShell.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                MyShell.GetComponent<Rigidbody>().AddForce(MyShell.transform.up * ShellPopForce);
+                GameObject g = MyShell.gameObject;
+                MyShell = null;
+                g.gameObject.GetComponent<Collider>().enabled = true;
+                g.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                g.GetComponent<Rigidbody>().AddForce(ShellSocket.transform.right * ShellPopForce);
             }
         }
     }
