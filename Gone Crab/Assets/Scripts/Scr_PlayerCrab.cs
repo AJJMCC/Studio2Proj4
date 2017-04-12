@@ -45,7 +45,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
     [SerializeField]
     private float FallDamageMinDist = 5.0f;
     [SerializeField]
-    private float ShellMinLerpSpeed = 10.0f;
+    private float ShellLerpSpeed = 20.0f;
+    [SerializeField]
+    private float ShellLockDistance = 10.0f;
+    [SerializeField]
+    private float ShellPopForce = 10.0f;
     #endregion
 
     #region Private Variables
@@ -54,6 +58,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private bool bInAirLastFrame = false;
     private float StoredHeight = 0.0f;
     private string MyShellState;
+    private bool ShellDoneLerp = false;
     #endregion
 
     // Use this for initialization
@@ -131,7 +136,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             PickupShell();
         else if (Input.GetMouseButtonDown(1))
         {
-            RemoveShell();
+            RemoveShell(false);
             dialogueController.DisplayLine(7);
         }
     }
@@ -147,7 +152,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 if (Vector3.Distance(this.transform.position, shell.transform.position) < interactDistance * this.transform.localScale.x && shell.isAcceptable())
                 {
                     shell.gameObject.GetComponent<Collider>().enabled = false;
+                    shell.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     MyShell = shell;
+                    ShellDoneLerp = false;
                     MyShellState = "";
                     if (Scr_AnalyticController.Analytics)
                     {
@@ -161,11 +168,18 @@ public class Scr_PlayerCrab : MonoBehaviour {
     }
 
     // Todo: This is just shit and temp lmao
-    void RemoveShell()
+    void RemoveShell(bool bDestroyed)
     {
         if(MyShell != null)
         {
-            Destroy(MyShell.gameObject);
+            if(bDestroyed)
+                Destroy(MyShell.gameObject);
+            else
+            {
+                MyShell.gameObject.GetComponent<Collider>().enabled = true;
+                MyShell.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                MyShell.GetComponent<Rigidbody>().AddForce(MyShell.transform.up * ShellPopForce);
+            }
         }
     }
 
@@ -173,10 +187,19 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if (MyShell != null)
         {
-            float sp = Mathf.Clamp(rb.velocity.magnitude * 10, ShellMinLerpSpeed, rb.velocity.magnitude * 10);
+            if (!ShellDoneLerp)
+            {
+                MyShell.gameObject.transform.position = Vector3.Lerp(MyShell.gameObject.transform.position, ShellSocket.transform.position, ShellLerpSpeed * this.transform.localScale.x * Time.deltaTime);
+                MyShell.gameObject.transform.rotation = Quaternion.Lerp(MyShell.gameObject.transform.rotation, ShellSocket.transform.rotation, ShellLerpSpeed * this.transform.localScale.x * Time.deltaTime);
 
-            MyShell.gameObject.transform.position = Vector3.Lerp(MyShell.gameObject.transform.position, ShellSocket.transform.position, sp * Time.deltaTime);
-            MyShell.gameObject.transform.rotation = Quaternion.Lerp(MyShell.gameObject.transform.rotation, ShellSocket.transform.rotation, sp * Time.deltaTime);
+                if (Vector3.Distance(MyShell.gameObject.transform.position, ShellSocket.transform.position) < ShellLockDistance * this.transform.localScale.x)
+                    ShellDoneLerp = true;
+            }
+            else
+            {
+                MyShell.gameObject.transform.position = ShellSocket.transform.position;
+                MyShell.gameObject.transform.rotation = ShellSocket.transform.rotation;
+            }
         }
         else if(Scr_AnalyticController.Analytics)
             Scr_AnalyticController.Analytics.CurrentTimeSpentWithoutShell += Time.deltaTime;
@@ -192,7 +215,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
         {
             if (!MyShell.isAcceptable())
             {
-                RemoveShell();
+                RemoveShell(true);
                 if(Scr_AnalyticController.Analytics)
                     Scr_AnalyticController.Analytics.TimesOutgrownShell++;
                 dialogueController.DisplayLine(4);
@@ -246,7 +269,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
         {
             if (FallenTooFar)
             {
-                RemoveShell();
+                RemoveShell(true);
                 if (Scr_AnalyticController.Analytics)
                     Scr_AnalyticController.Analytics.TimesTakenFallDamage++;
                 dialogueController.DisplayLine(4);
