@@ -1,0 +1,475 @@
+fileFormatVersion: 2
+guid: 5cb9aea7988676e48a4b5a422310db7b
+timeCreated: 1491984420
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: __Ref
+    100002: Body
+    100004: CATRigLArmIKTarget
+    100006: CATRigRArmIKTarget
+    100008: CATRigTail1
+    100010: CATRigTail2
+    100012: CATRigTail3
+    100014: CATRigTail4
+    100016: CATRigTail5
+    100018: Eye
+    100020: EyeR
+    100022: EyeStalk
+    100024: EyeStalkR
+    100026: H_BLFoot1
+    100028: H_BLFoot2
+    100030: H_BLFoot3
+    100032: H_BLFoot4
+    100034: H_Body
+    100036: H_BRFoot1
+    100038: H_BRFoot2
+    100040: H_BRFoot3
+    100042: H_BRFoot4
+    100044: H_FLFoot1
+    100046: H_FLFoot2
+    100048: H_FLFoot3
+    100050: H_FLFoot4
+    100052: H_FRFoot1
+    100054: H_FRFoot2
+    100056: H_FRFoot3
+    100058: H_FRFoot4
+    100060: H_LClaw_Bicep
+    100062: H_LClaw_Forearm
+    100064: H_LClaw_Hand
+    100066: H_LClaw_Pincer
+    100068: H_LEye1
+    100070: H_LEye2
+    100072: H_LEye3
+    100074: H_Platform_BLFoot
+    100076: H_Platform_BRFoot
+    100078: H_Platform_FLFoot
+    100080: H_Platform_FRFoot
+    100082: H_RClaw_Bicep
+    100084: H_RClaw_Forearm
+    100086: H_RClaw_Hand
+    100088: H_RClaw_Pincer
+    100090: H_REye1
+    100092: H_REye2
+    100094: H_REye3
+    100096: H_TriBase
+    100098: Object001
+    100100: Object002
+    100102: Object003
+    100104: Object004
+    100106: Object005
+    100108: Object006
+    100110: Object007
+    100112: Object008
+    100114: Object009
+    100116: Object010
+    100118: Object011
+    100120: Object012
+    100122: Object013
+    100124: Object014
+    100126: Object015
+    100128: Object016
+    100130: Object017
+    100132: Object018
+    100134: Object019
+    100136: Object020
+    100138: Object021
+    100140: Object022
+    100142: Object023
+    100144: Object024
+    100146: Shell
+    100148: Tail
+    100150: //RootNode
+    400000: __Ref
+    400002: Body
+    400004: CATRigLArmIKTarget
+    400006: CATRigRArmIKTarget
+    400008: CATRigTail1
+    400010: CATRigTail2
+    400012: CATRigTail3
+    400014: CATRigTail4
+    400016: CATRigTail5
+    400018: Eye
+    400020: EyeR
+    400022: EyeStalk
+    400024: EyeStalkR
+    400026: H_BLFoot1
+    400028: H_BLFoot2
+    400030: H_BLFoot3
+    400032: H_BLFoot4
+    400034: H_Body
+    400036: H_BRFoot1
+    400038: H_BRFoot2
+    400040: H_BRFoot3
+    400042: H_BRFoot4
+    400044: H_FLFoot1
+    400046: H_FLFoot2
+    400048: H_FLFoot3
+    400050: H_FLFoot4
+    400052: H_FRFoot1
+    400054: H_FRFoot2
+    400056: H_FRFoot3
+    400058: H_FRFoot4
+    400060: H_LClaw_Bicep
+    400062: H_LClaw_Forearm
+    400064: H_LClaw_Hand
+    400066: H_LClaw_Pincer
+    400068: H_LEye1
+    400070: H_LEye2
+    400072: H_LEye3
+    400074: H_Platform_BLFoot
+    400076: H_Platform_BRFoot
+    400078: H_Platform_FLFoot
+    400080: H_Platform_FRFoot
+    400082: H_RClaw_Bicep
+    400084: H_RClaw_Forearm
+    400086: H_RClaw_Hand
+    400088: H_RClaw_Pincer
+    400090: H_REye1
+    400092: H_REye2
+    400094: H_REye3
+    400096: H_TriBase
+    400098: Object001
+    400100: Object002
+    400102: Object003
+    400104: Object004
+    400106: Object005
+    400108: Object006
+    400110: Object007
+    400112: Object008
+    400114: Object009
+    400116: Object010
+    400118: Object011
+    400120: Object012
+    400122: Object013
+    400124: Object014
+    400126: Object015
+    400128: Object016
+    400130: Object017
+    400132: Object018
+    400134: Object019
+    400136: Object020
+    400138: Object021
+    400140: Object022
+    400142: Object023
+    400144: Object024
+    400146: Shell
+    400148: Tail
+    400150: //RootNode
+    2300000: __Ref
+    2300002: Shell
+    3300000: __Ref
+    3300002: Shell
+    4300000: __Ref
+    4300002: Body
+    4300004: Shell
+    4300006: Tail
+    4300008: EyeStalk
+    4300010: Eye
+    4300012: EyeStalkR
+    4300014: EyeR
+    4300016: Object001
+    4300018: Object002
+    4300020: Object003
+    4300022: Object004
+    4300024: Object005
+    4300026: Object006
+    4300028: Object007
+    4300030: Object008
+    4300032: Object009
+    4300034: Object010
+    4300036: Object011
+    4300038: Object012
+    4300040: Object013
+    4300042: Object014
+    4300044: Object015
+    4300046: Object016
+    4300048: Object017
+    4300050: Object018
+    4300052: Object019
+    4300054: Object020
+    4300056: Object021
+    4300058: Object022
+    4300060: Object023
+    4300062: Object024
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Body
+    13700002: Eye
+    13700004: EyeR
+    13700006: EyeStalk
+    13700008: EyeStalkR
+    13700010: Object001
+    13700012: Object002
+    13700014: Object003
+    13700016: Object004
+    13700018: Object005
+    13700020: Object006
+    13700022: Object007
+    13700024: Object008
+    13700026: Object009
+    13700028: Object010
+    13700030: Object011
+    13700032: Object012
+    13700034: Object013
+    13700036: Object014
+    13700038: Object015
+    13700040: Object016
+    13700042: Object017
+    13700044: Object018
+    13700046: Object019
+    13700048: Object020
+    13700050: Object021
+    13700052: Object022
+    13700054: Object023
+    13700056: Object024
+    13700058: Tail
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: Body
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: __Ref
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: CATRigLArmIKTarget
+        weight: 1
+      - path: CATRigRArmIKTarget
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: EyeR
+        weight: 1
+      - path: EyeStalk
+        weight: 1
+      - path: EyeStalkR
+        weight: 1
+      - path: H_Body
+        weight: 1
+      - path: H_Body/CATRigTail1
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2/CATRigTail3
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2/CATRigTail3/CATRigTail4
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2/CATRigTail3/CATRigTail4/CATRigTail5
+        weight: 1
+      - path: H_Body/H_BLFoot1
+        weight: 1
+      - path: H_Body/H_BLFoot1/H_BLFoot2
+        weight: 1
+      - path: H_Body/H_BLFoot1/H_BLFoot2/H_BLFoot3
+        weight: 1
+      - path: H_Body/H_BLFoot1/H_BLFoot2/H_BLFoot3/H_BLFoot4
+        weight: 1
+      - path: H_Body/H_BRFoot1
+        weight: 1
+      - path: H_Body/H_BRFoot1/H_BRFoot2
+        weight: 1
+      - path: H_Body/H_BRFoot1/H_BRFoot2/H_BRFoot3
+        weight: 1
+      - path: H_Body/H_BRFoot1/H_BRFoot2/H_BRFoot3/H_BRFoot4
+        weight: 1
+      - path: H_Body/H_FLFoot1
+        weight: 1
+      - path: H_Body/H_FLFoot1/H_FLFoot2
+        weight: 1
+      - path: H_Body/H_FLFoot1/H_FLFoot2/H_FLFoot3
+        weight: 1
+      - path: H_Body/H_FLFoot1/H_FLFoot2/H_FLFoot3/H_FLFoot4
+        weight: 1
+      - path: H_Body/H_FRFoot1
+        weight: 1
+      - path: H_Body/H_FRFoot1/H_FRFoot2
+        weight: 1
+      - path: H_Body/H_FRFoot1/H_FRFoot2/H_FRFoot3
+        weight: 1
+      - path: H_Body/H_FRFoot1/H_FRFoot2/H_FRFoot3/H_FRFoot4
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep/H_LClaw_Forearm
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep/H_LClaw_Forearm/H_LClaw_Hand
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep/H_LClaw_Forearm/H_LClaw_Hand/H_LClaw_Pincer
+        weight: 1
+      - path: H_Body/H_LEye1
+        weight: 1
+      - path: H_Body/H_LEye1/H_LEye2
+        weight: 1
+      - path: H_Body/H_LEye1/H_LEye2/H_LEye3
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep/H_RClaw_Forearm
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep/H_RClaw_Forearm/H_RClaw_Hand
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep/H_RClaw_Forearm/H_RClaw_Hand/H_RClaw_Pincer
+        weight: 1
+      - path: H_Body/H_REye1
+        weight: 1
+      - path: H_Body/H_REye1/H_REye2
+        weight: 1
+      - path: H_Body/H_REye1/H_REye2/H_REye3
+        weight: 1
+      - path: H_Platform_BLFoot
+        weight: 1
+      - path: H_Platform_BRFoot
+        weight: 1
+      - path: H_Platform_FLFoot
+        weight: 1
+      - path: H_Platform_FRFoot
+        weight: 1
+      - path: H_TriBase
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Object004
+        weight: 1
+      - path: Object005
+        weight: 1
+      - path: Object006
+        weight: 1
+      - path: Object007
+        weight: 1
+      - path: Object008
+        weight: 1
+      - path: Object009
+        weight: 1
+      - path: Object010
+        weight: 1
+      - path: Object011
+        weight: 1
+      - path: Object012
+        weight: 1
+      - path: Object013
+        weight: 1
+      - path: Object014
+        weight: 1
+      - path: Object015
+        weight: 1
+      - path: Object016
+        weight: 1
+      - path: Object017
+        weight: 1
+      - path: Object018
+        weight: 1
+      - path: Object019
+        weight: 1
+      - path: Object020
+        weight: 1
+      - path: Object021
+        weight: 1
+      - path: Object022
+        weight: 1
+      - path: Object023
+        weight: 1
+      - path: Object024
+        weight: 1
+      - path: Shell
+        weight: 1
+      - path: Tail
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
