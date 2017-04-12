@@ -44,6 +44,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float BurnHealSpeed = 10.0f;
     [SerializeField]
     private float FallDamageMinDist = 5.0f;
+    [SerializeField]
+    private float ShellMinLerpSpeed = 10.0f;
     #endregion
 
     #region Private Variables
@@ -125,9 +127,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
     // Handles Shell equipping and dropping when manually called by the player.
     void ShellInteract()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetAxis("joystick1axis10") > 0.2)
+        if (Input.GetMouseButtonDown(0))
             PickupShell();
-        else if (Input.GetMouseButtonDown(1) || Input.GetAxis("joystick1axis9") > 0.2)
+        else if (Input.GetMouseButtonDown(1))
         {
             RemoveShell();
             dialogueController.DisplayLine(7);
@@ -171,8 +173,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if (MyShell != null)
         {
-            MyShell.gameObject.transform.position = ShellSocket.transform.position;
-            MyShell.gameObject.transform.rotation = ShellSocket.transform.rotation;
+            float sp = Mathf.Clamp(rb.velocity.magnitude * 10, ShellMinLerpSpeed, rb.velocity.magnitude * 10);
+
+            MyShell.gameObject.transform.position = Vector3.Lerp(MyShell.gameObject.transform.position, ShellSocket.transform.position, sp * Time.deltaTime);
+            MyShell.gameObject.transform.rotation = Quaternion.Lerp(MyShell.gameObject.transform.rotation, ShellSocket.transform.rotation, sp * Time.deltaTime);
         }
         else if(Scr_AnalyticController.Analytics)
             Scr_AnalyticController.Analytics.CurrentTimeSpentWithoutShell += Time.deltaTime;

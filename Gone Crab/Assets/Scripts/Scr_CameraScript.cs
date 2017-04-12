@@ -35,8 +35,8 @@ public class Scr_CameraScript : MonoBehaviour
             rotAverageY = 0f;
             rotAverageX = 0f;
 
-            rotationY -= (Input.GetAxis("Mouse Y") + Input.GetAxis("joystick1axis5")) * sensitivityY;
-            rotationX += (Input.GetAxis("Mouse X") + Input.GetAxis("joystick1axis4")) * sensitivityX;
+            rotationY -= (Input.GetAxis("Mouse Y")) * sensitivityY;
+            rotationX += (Input.GetAxis("Mouse X")) * sensitivityX;
 
             rotationY = ClampAngle(rotationY, minimumY, maximumY);
             rotationX = ClampAngle(rotationX, minimumX, maximumX);
