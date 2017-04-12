@@ -33,7 +33,6 @@ public class Scr_bigcrab : MonoBehaviour {
         if (Pdist <= 25 && playercrab.transform.localScale.x < 11)
         {
             thisanim.SetTrigger("Raise claws");
-            Debug.Log("raised claws");
         }
 
         else if (Pdist <= 30 && playercrab.transform.localScale.x >= 11)
