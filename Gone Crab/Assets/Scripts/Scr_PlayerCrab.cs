@@ -66,18 +66,21 @@ public class Scr_PlayerCrab : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        // Big boi found new home <3
-        ShellInteract();
-        // Kicked out of home RIP
-        ShellUpdate();
-        // Grow up big and strong!
-        GrowthByTime();
-        // Ouch dats hot REEE
-        UpdateBurn();
-        // He did a bit humpty dumpty
-        FallDamageUpdate();
-        // Baby gon do the first worderinos <3 <3
-        DialougeUpdate();
+        if (FindObjectOfType<MouseLock>().mouseLocked)
+        {
+            // Big boi found new home <3
+            ShellInteract();
+            // Kicked out of home RIP
+            ShellUpdate();
+            // Grow up big and strong!
+            GrowthByTime();
+            // Ouch dats hot REEE
+            UpdateBurn();
+            // He did a bit humpty dumpty
+            FallDamageUpdate();
+            // Baby gon do the first worderinos <3 <3
+            DialougeUpdate();
+        }
     }
 
     void FixedUpdate()
@@ -122,9 +125,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
     // Handles Shell equipping and dropping when manually called by the player.
     void ShellInteract()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetAxis("joystick1axis10") > 0.2)
             PickupShell();
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1) || Input.GetAxis("joystick1axis9") > 0.2)
         {
             RemoveShell();
             dialogueController.DisplayLine(7);

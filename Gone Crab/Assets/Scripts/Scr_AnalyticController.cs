@@ -42,6 +42,7 @@ public class Scr_AnalyticController : MonoBehaviour {
     private int NumberOfNewLooseShells = 0;
     private int NewShellsThisChunk = 0;
     private float MaxTimeSpentWithoutShell = 0.0f;
+    private int FileNum;
     #endregion
 
     #region Public Fields
@@ -57,20 +58,22 @@ public class Scr_AnalyticController : MonoBehaviour {
         Analytics = this;
         CrabRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Scr_PlayerCrab>();
         ChunkDataDumpTimer = ChunkDataDumpInterval;
+
+        FileNum = determineFileNum();
     }
 	
 	// Update is called once per frame
 	void Update () {
         ChunkDataUpdate(false);
+    }
 
-        /*
-        if (Input.GetKey(KeyCode.F1))
-        {
-            WriteDataToCSV();
-            Debug.Log("Did a quick hecking analyse");
-        }
-        */
-	}
+    int determineFileNum()
+    {
+        int i = PlayerPrefs.GetInt("FileNum", -1);
+        i += 1;
+        PlayerPrefs.SetInt("FileNum", i);
+        return i += 1;
+    }
 
     void ChunkDataUpdate(bool bOverrideTimer)
     {
@@ -92,14 +95,7 @@ public class Scr_AnalyticController : MonoBehaviour {
         //ChunkDataUpdate(true);
 
         // Getting the Path
-        string dataPath = Application.dataPath + DumpFile;
-        int num = 0;
-        while(Directory.Exists(dataPath + num.ToString() + DumpFileExtension))
-        {
-            num++;
-        }
-
-        dataPath = dataPath + num.ToString() + DumpFileExtension;
+        string dataPath = Application.dataPath + DumpFile + FileNum + DumpFileExtension;
         StreamWriter writer = new StreamWriter(dataPath);
 
         // OverallData

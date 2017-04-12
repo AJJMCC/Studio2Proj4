@@ -1,0 +1,12 @@
+#OverallData
+PlaySessionLength,0
+DidPlayerFinish,False
+NumberOfNewShells,0
+NumberOfNewTightShells,0
+NumberOfNewAverageShells,0
+NumberOfNewLooseShells,0
+TimesTakenFallDamage,0
+TimesOutgrownShell,0
+MaxTimeSpentWithoutShell,0
+
+#OverallData

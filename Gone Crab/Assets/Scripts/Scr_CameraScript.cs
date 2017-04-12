@@ -30,48 +30,51 @@ public class Scr_CameraScript : MonoBehaviour
 
     void Update()
     {
-        rotAverageY = 0f;
-        rotAverageX = 0f;
-
-        rotationY -= Input.GetAxis("Mouse Y") * sensitivityY;
-        rotationX += Input.GetAxis("Mouse X") * sensitivityX;
-
-        rotationY = ClampAngle(rotationY, minimumY, maximumY);
-        rotationX = ClampAngle(rotationX, minimumX, maximumX);
-
-        rotArrayY.Add(rotationY);
-        rotArrayX.Add(rotationX);
-
-        if (rotArrayY.Count >= frameCounter)
+        if (FindObjectOfType<MouseLock>().mouseLocked)
         {
-            rotArrayY.RemoveAt(0);
+            rotAverageY = 0f;
+            rotAverageX = 0f;
+
+            rotationY -= (Input.GetAxis("Mouse Y") + Input.GetAxis("joystick1axis5")) * sensitivityY;
+            rotationX += (Input.GetAxis("Mouse X") + Input.GetAxis("joystick1axis4")) * sensitivityX;
+
+            rotationY = ClampAngle(rotationY, minimumY, maximumY);
+            rotationX = ClampAngle(rotationX, minimumX, maximumX);
+
+            rotArrayY.Add(rotationY);
+            rotArrayX.Add(rotationX);
+
+            if (rotArrayY.Count >= frameCounter)
+            {
+                rotArrayY.RemoveAt(0);
+            }
+            if (rotArrayX.Count >= frameCounter)
+            {
+                rotArrayX.RemoveAt(0);
+            }
+
+            for (int j = 0; j < rotArrayY.Count; j++)
+            {
+                rotAverageY += rotArrayY[j];
+            }
+            for (int i = 0; i < rotArrayX.Count; i++)
+            {
+                rotAverageX += rotArrayX[i];
+            }
+
+            rotAverageY /= rotArrayY.Count;
+            rotAverageX /= rotArrayX.Count;
+
+            rotAverageY = ClampAngle(rotAverageY, minimumY, maximumY);
+            rotAverageX = ClampAngle(rotAverageX, minimumX, maximumX);
+
+            Quaternion yQuaternion = Quaternion.AngleAxis(rotAverageY, Vector3.forward);
+            Quaternion xQuaternion = Quaternion.AngleAxis(rotAverageX, Vector3.up);
+
+            transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+
+            transform.position = FollowGO.transform.position;
         }
-        if (rotArrayX.Count >= frameCounter)
-        {
-            rotArrayX.RemoveAt(0);
-        }
-
-        for (int j = 0; j < rotArrayY.Count; j++)
-        {
-            rotAverageY += rotArrayY[j];
-        }
-        for (int i = 0; i < rotArrayX.Count; i++)
-        {
-            rotAverageX += rotArrayX[i];
-        }
-
-        rotAverageY /= rotArrayY.Count;
-        rotAverageX /= rotArrayX.Count;
-
-        rotAverageY = ClampAngle(rotAverageY, minimumY, maximumY);
-        rotAverageX = ClampAngle(rotAverageX, minimumX, maximumX);
-
-        Quaternion yQuaternion = Quaternion.AngleAxis(rotAverageY, Vector3.forward);
-        Quaternion xQuaternion = Quaternion.AngleAxis(rotAverageX, Vector3.up);
-
-        transform.localRotation = originalRotation * xQuaternion * yQuaternion;
-
-        transform.position = FollowGO.transform.position;
     }
 
     void Start()

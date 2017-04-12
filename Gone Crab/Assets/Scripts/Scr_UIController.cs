@@ -11,7 +11,7 @@ public class Scr_UIController : MonoBehaviour
     public Image selectImage;
     public Button[] menuButtons;
     public GameObject menu;
-    //public float selectSpeed;
+    //public float selectSpeed = 50000;
 
 	// Use this for initialization
 	void Start ()

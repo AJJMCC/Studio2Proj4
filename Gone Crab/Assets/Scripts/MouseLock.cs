@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MouseLock : MonoBehaviour
 {
-    bool mouseLocked = true;
+    public bool mouseLocked = true;
 
     // Update is called once per frame
     void Update()
@@ -18,7 +18,7 @@ public class MouseLock : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             mouseLocked = !mouseLocked;
         }
