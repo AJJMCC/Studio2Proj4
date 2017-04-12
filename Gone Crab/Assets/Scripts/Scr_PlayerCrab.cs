@@ -144,8 +144,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
                     shell.gameObject.GetComponent<Collider>().enabled = false;
                     MyShell = shell;
                     MyShellState = "";
-                    Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
-                    Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
+                    if (Scr_AnalyticController.Analytics)
+                    {
+                        Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
+                        Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
+                    }
                     break;
                 }                
             }
@@ -168,7 +171,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             MyShell.gameObject.transform.position = ShellSocket.transform.position;
             MyShell.gameObject.transform.rotation = ShellSocket.transform.rotation;
         }
-        else
+        else if(Scr_AnalyticController.Analytics)
             Scr_AnalyticController.Analytics.CurrentTimeSpentWithoutShell += Time.deltaTime;
     }
 
@@ -183,7 +186,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
             if (!MyShell.isAcceptable())
             {
                 RemoveShell();
-                Scr_AnalyticController.Analytics.TimesOutgrownShell++;
+                if(Scr_AnalyticController.Analytics)
+                    Scr_AnalyticController.Analytics.TimesOutgrownShell++;
                 dialogueController.DisplayLine(4);
             }
         }
@@ -236,7 +240,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
             if (FallenTooFar)
             {
                 RemoveShell();
-                Scr_AnalyticController.Analytics.TimesTakenFallDamage++;
+                if (Scr_AnalyticController.Analytics)
+                    Scr_AnalyticController.Analytics.TimesTakenFallDamage++;
                 dialogueController.DisplayLine(4);
             } 
         }

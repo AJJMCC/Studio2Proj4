@@ -35,7 +35,7 @@ public class Scr_AnalyticController : MonoBehaviour {
 
     #region Private Fields
     private float ChunkDataDumpTimer; // The period between when dump data is collected.
-    private List<ChunkData> chunkDataList;
+    private List<ChunkData> chunkDataList = new List<ChunkData>();
     private int NumberOfNewShells = 0;
     private int NumberOfNewTightShells = 0;
     private int NumberOfNewAverageShells = 0;
@@ -61,16 +61,19 @@ public class Scr_AnalyticController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ChunkDataUpdate();
+        ChunkDataUpdate(false);
 
         if (Input.GetKey(KeyCode.F1))
+        {
             WriteDataToCSV();
+            Debug.Log("Did a quick hecking analyse");
+        }
 	}
 
-    void ChunkDataUpdate()
+    void ChunkDataUpdate(bool bOverrideTimer)
     {
         ChunkDataDumpTimer -= Time.deltaTime;
-        if(ChunkDataDumpTimer <= 0.0f)
+        if(ChunkDataDumpTimer <= 0.0f || bOverrideTimer)
         {
             ChunkDataDumpTimer = ChunkDataDumpInterval;
 
@@ -83,6 +86,8 @@ public class Scr_AnalyticController : MonoBehaviour {
 
     void WriteDataToCSV()
     {
+        ChunkDataUpdate(true);
+
         // Getting the Path
         string dataPath = Application.dataPath + DumpFile;
         int num = 0;

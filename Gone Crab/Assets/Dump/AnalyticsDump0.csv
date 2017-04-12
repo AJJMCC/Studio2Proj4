@@ -1,0 +1,104 @@
+#OverallData
+PlaySessionLength,0
+DidPlayerFinish,False
+NumberOfNewShells,0
+NumberOfNewTightShells,0
+NumberOfNewAverageShells,0
+NumberOfNewLooseShells,0
+TimesTakenFallDamage,0
+TimesOutgrownShell,0
+MaxTimeSpentWithoutShell,0
+
+#OverallData
+#Chunk 0
+Position,35.10304,-57.09695
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,35.10305,-57.09695
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,35.10305,-57.09694
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,35.10306,-57.09693
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,35.10307,-57.09692
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,35.10307,-57.09692
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,32.04246,-58.29111
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.9952,-58.28329
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.94793,-58.27547
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.90067,-58.26764
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.8534,-58.25982
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.80614,-58.25199
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.80614,-58.25199
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.75887,-58.24417
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.71161,-58.23634
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.36012,-59.62937
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.36012,-59.62937
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.39797,-59.65825
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.43586,-59.68684
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.47378,-59.71533
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.51173,-59.74379
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.5497,-59.77221
+CurrentShellSize,-1
+NumShellsLost,0
+#Chunk 0
+Position,31.5497,-59.77221
+CurrentShellSize,-1
+NumShellsLost,0
