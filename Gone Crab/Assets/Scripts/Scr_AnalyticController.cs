@@ -63,11 +63,13 @@ public class Scr_AnalyticController : MonoBehaviour {
 	void Update () {
         ChunkDataUpdate(false);
 
+        /*
         if (Input.GetKey(KeyCode.F1))
         {
             WriteDataToCSV();
             Debug.Log("Did a quick hecking analyse");
         }
+        */
 	}
 
     void ChunkDataUpdate(bool bOverrideTimer)
@@ -82,11 +84,12 @@ public class Scr_AnalyticController : MonoBehaviour {
 
             NewShellsThisChunk = 0;
         }
+        WriteDataToCSV();
     }
 
     void WriteDataToCSV()
     {
-        ChunkDataUpdate(true);
+        //ChunkDataUpdate(true);
 
         // Getting the Path
         string dataPath = Application.dataPath + DumpFile;
