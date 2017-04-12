@@ -1,0 +1,20 @@
+#OverallData
+PlaySessionLength,0
+DidPlayerFinish,False
+NumberOfNewShells,1
+NumberOfNewTightShells,0
+NumberOfNewAverageShells,0
+NumberOfNewLooseShells,1
+TimesTakenFallDamage,42
+TimesOutgrownShell,0
+MaxTimeSpentWithoutShell,2.551594
+
+#OverallData
+#Chunk 0
+Position,32.23037,37.53888
+CurrentShellSize,-1
+NumShellsLost,1
+#Chunk 0
+Position,31.0987,42.18303
+CurrentShellSize,-1
+NumShellsLost,0

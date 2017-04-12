@@ -50,6 +50,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float ShellLockDistance = 10.0f;
     [SerializeField]
     private float ShellPopForce = 10.0f;
+    [SerializeField]
+    private float growthRateScaleFactor = 1.0f;
     #endregion
 
     #region Private Variables
@@ -105,13 +107,20 @@ public class Scr_PlayerCrab : MonoBehaviour {
         float ControlX = Input.GetAxis("Vertical");
         float ControlY = Input.GetAxis("Horizontal") * -1.0f;
 
+        if (ControlX != 0 && ControlY != 0)
+        {
+            ControlX = ControlX * 0.707f;
+            ControlY = ControlY * 0.707f;
+        }
+
         // Add Input Movement
         // X Update
         rb.MovePosition(rb.position + this.transform.forward * (ControlY * (groundSpeed * (this.transform.localScale.x * speedModifier)) * Time.deltaTime));
         // Y Update
         rb.MovePosition(rb.position + this.transform.right * (ControlX * (groundSpeed * (this.transform.localScale.x * speedModifier)) * Time.deltaTime));
         // Clamp Vel
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity * (this.transform.localScale.x * speedModifier));
+        if (Mathf.Abs(rb.velocity.y) < 0.05)
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity * (this.transform.localScale.x * speedModifier));
 
         // Updating Rotation
         Quaternion t = Quaternion.identity;
@@ -244,7 +253,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     void GrowthByTime()
     {
         if (MyShell != null)
-            SetCrabSize(this.transform.localScale.x + (growthRate * Time.deltaTime));
+            SetCrabSize(this.transform.localScale.x + ((growthRate * this.transform.localScale.x * growthRateScaleFactor) * Time.deltaTime));
     }
 
     void UpdateBurn()
@@ -255,7 +264,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             if (BurnTimer <= 0)
             {
                 BurnTimer = 0;
-                Debug.Log("KILL");
+                OnDie();
             }
             else if (BurnTimer < BurnTimerMax / 2 && !bSaidHalfbakedLine)
             {
@@ -336,6 +345,12 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 otherObj.collider.isTrigger = true;
             }
         }
+        if (otherObj.transform.tag == "Water")
+        {
+            rb.AddForce(-Vector3.Normalize(rb.velocity) * 100);
+            rb.AddForce(this.transform.right * 500);
+            Debug.Log("Wet Boi");
+        }
     }
 
     public float GetShellSize()
@@ -344,5 +359,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
             return MyShell.gameObject.transform.localScale.x;
         else
             return -1.0f;
+    }
+
+    void OnDie()
+    {
+
     }
 }
