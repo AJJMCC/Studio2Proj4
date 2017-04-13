@@ -169,7 +169,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
                     }
                     else
                     {
-                        shell.gameObject.GetComponent<Collider>().enabled = false;
+                        shell.gameObject.GetComponentInChildren<MeshCollider>().enabled = false;
                         shell.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                         MyShell = shell;
                         ShellDoneLerp = false;
@@ -203,7 +203,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             {
                 GameObject g = MyShell.gameObject;
                 MyShell = null;
-                g.gameObject.GetComponent<Collider>().enabled = true;
+                g.gameObject.GetComponentInChildren<MeshCollider>().enabled = true;
                 g.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 g.GetComponent<Rigidbody>().AddForce(ShellSocket.transform.right * ShellPopForce);
             }

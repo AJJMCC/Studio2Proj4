@@ -16,7 +16,12 @@ public class Scr_UIController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-		
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            isPaused = true;
+        }
+        else
+            isPaused = false;
 	}
 	
 	// Update is called once per frame
@@ -24,26 +29,29 @@ public class Scr_UIController : MonoBehaviour
     {
         //selectImage.transform.localPosition = Vector3.MoveTowards(selectImage.transform.localPosition, menuButtons[currentSelection - 1].transform.localPosition, selectSpeed * Time.deltaTime);
 
-        // These KeyDowns may need to be changed, didn't use axis to avoid using cooldown bool
-		if (Input.GetKeyDown("w"))
+        if (isPaused)
         {
-            ChangeSelection(1);
-        }
-        else if (Input.GetKeyDown("s"))
-        {
-            ChangeSelection(0);
-        }
-
-        // Calls the select function corresponding to the current level when submit is pressed
-        if (Input.GetButtonDown("Submit"))
-        {
-            if (SceneManager.GetActiveScene().buildIndex == 0)
+            // These KeyDowns may need to be changed, didn't use axis to avoid using cooldown bool
+            if (Input.GetButtonDown("Up"))
             {
-                MainMenuSelect();
+                ChangeSelection(1);
             }
-            else if (SceneManager.GetActiveScene().buildIndex == 1)
+            else if (Input.GetButtonDown("Down"))
             {
-                InLevelSelect();
+                ChangeSelection(0);
+            }
+
+            // Calls the select function corresponding to the current level when submit is pressed
+            if (Input.GetButtonDown("Submit"))
+            {
+                if (SceneManager.GetActiveScene().buildIndex == 0)
+                {
+                    MainMenuSelect();
+                }
+                else if (SceneManager.GetActiveScene().buildIndex == 1)
+                {
+                    InLevelSelect();
+                }
             }
         }
 
@@ -108,7 +116,7 @@ public class Scr_UIController : MonoBehaviour
         {
             currentSelection--;
         }
-        else if (dir == 0 && currentSelection < 4)
+        else if (dir == 0 && currentSelection < menuButtons.Length)
         {
             currentSelection++;
         }
