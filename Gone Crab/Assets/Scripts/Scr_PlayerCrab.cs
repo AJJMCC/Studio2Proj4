@@ -77,7 +77,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (bControlLocked)
+        if (!bControlLocked)
         {
             // Big boi found new home <3
             ShellInteract();
