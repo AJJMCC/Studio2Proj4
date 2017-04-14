@@ -20,6 +20,10 @@ public class Shell_indv : MonoBehaviour {
     
     [SerializeField]
     private Renderer rend; 
+    [SerializeField]
+    private float massModifier;
+
+    private Rigidbody rb;
 
     private Color Green = new Color32(0,197,50,255);
     private Color Yellow = new Color32(197, 192, 0, 255);
@@ -29,6 +33,8 @@ public class Shell_indv : MonoBehaviour {
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody>();
+        rb.mass = this.transform.localScale.x * massModifier;
     }
 	
 	void Update ()
