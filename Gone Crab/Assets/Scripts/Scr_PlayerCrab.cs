@@ -52,6 +52,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float ShellPopForce = 10.0f;
     [SerializeField]
     private float growthRateScaleFactor = 1.0f;
+    [SerializeField]
+    private float interactForce = 10.0f;
+    [SerializeField]
+    private Vector3 yInteractAmount;
     #endregion
 
     #region Private Variables
@@ -81,6 +85,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
         {
             // Big boi found new home <3
             ShellInteract();
+            // [Insert pun]
+            OtherInteract();
             // Kicked out of home RIP
             ShellUpdate();
             // Grow up big and strong!
@@ -149,6 +155,25 @@ public class Scr_PlayerCrab : MonoBehaviour {
         {
             RemoveShell(false);
             dialogueController.DisplayLine(7);
+        }
+    }
+
+    void OtherInteract()
+    {
+        if (Input.GetMouseButtonDown(0))
+            Interactable();
+    }
+
+    void Interactable()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Interactable");
+        foreach (GameObject obj in objects)
+        {
+            if (Vector3.Distance(this.transform.position, obj.transform.position) < interactDistance * this.transform.localScale.x && obj.GetComponent<Scr_Interactable>().isAcceptable())
+            {
+                obj.GetComponent<Rigidbody>().AddForce(((obj.transform.position - this.transform.position) + yInteractAmount) * interactForce, ForceMode.Impulse);
+                obj.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(obj.transform.position, 1);
+            }
         }
     }
 
