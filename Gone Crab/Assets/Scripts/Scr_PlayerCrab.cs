@@ -56,6 +56,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float interactForce = 10.0f;
     [SerializeField]
     private Vector3 yInteractAmount;
+    [SerializeField]
+    private Vector3 WaterResistanceVector = new Vector3(100, 10, 0);
     #endregion
 
     #region Private Variables
@@ -372,8 +374,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
         }
         if (otherObj.transform.tag == "Water")
         {
-            rb.AddForce(-Vector3.Normalize(rb.velocity) * 100);
-            rb.AddForce(this.transform.right * 500);
+            rb.AddForce(WaterResistanceVector);
             Debug.Log("Wet Boi");
         }
     }
