@@ -29,7 +29,7 @@ public class Scr_AnalyticController : MonoBehaviour {
     [SerializeField]
     private float ChunkDataDumpInterval = 15.0f; // The period between when dump data is collected.
     [SerializeField]
-    private string DumpFile = "/Dump/AnalyticsDump"; // The period between when dump data is collected.
+    private string FileDirectory = "/Dump/"; // The period between when dump data is collected.
     private string DumpFileExtension = ".csv"; // The period between when dump data is collected.
     #endregion
 
@@ -60,6 +60,11 @@ public class Scr_AnalyticController : MonoBehaviour {
         ChunkDataDumpTimer = ChunkDataDumpInterval;
 
         FileNum = determineFileNum();
+
+        if (!Directory.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + FileDirectory))
+        {
+            Directory.CreateDirectory(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + FileDirectory);
+        }
     }
 	
 	// Update is called once per frame
@@ -95,7 +100,8 @@ public class Scr_AnalyticController : MonoBehaviour {
         //ChunkDataUpdate(true);
 
         // Getting the Path
-        string dataPath = Application.dataPath + DumpFile + FileNum + DumpFileExtension;
+        string dataPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + FileDirectory + "Analytics_" + FileNum + DumpFileExtension;
+
         StreamWriter writer = new StreamWriter(dataPath);
 
         // OverallData
