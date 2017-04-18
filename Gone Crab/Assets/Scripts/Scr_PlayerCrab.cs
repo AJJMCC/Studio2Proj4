@@ -151,10 +151,14 @@ public class Scr_PlayerCrab : MonoBehaviour {
     // Handles Shell equipping and dropping when manually called by the player.
     void ShellInteract()
     {
-        if (Input.GetMouseButtonDown(0))
-            PickupShell();
-        else if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0) || Input.GetAxis("ShellOn") > 0.25)
         {
+            Debug.Log("ShellOn");
+            PickupShell();
+        }
+        else if (Input.GetMouseButtonDown(1) || Input.GetAxis("ShellOff") > 0.25)
+        {
+            Debug.Log("ShellOff");
             RemoveShell(false);
             dialogueController.DisplayLine(7);
         }
