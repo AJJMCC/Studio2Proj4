@@ -1,0 +1,285 @@
+fileFormatVersion: 2
+guid: d1874e5a1f112bc4492938a50173e299
+timeCreated: 1492485155
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: CATRigTail1
+    100004: CATRigTail2
+    100006: CATRigTail3
+    100008: CATRigTail4
+    100010: CATRigTail5
+    100012: //RootNode
+    100014: H_BLFoot1
+    100016: H_BLFoot2
+    100018: H_BLFoot3
+    100020: H_BLFoot4
+    100022: H_Body
+    100024: H_BRFoot1
+    100026: H_BRFoot2
+    100028: H_BRFoot3
+    100030: H_BRFoot4
+    100032: H_FLFoot1
+    100034: H_FLFoot2
+    100036: H_FLFoot3
+    100038: H_FLFoot4
+    100040: H_FRFoot1
+    100042: H_FRFoot2
+    100044: H_FRFoot3
+    100046: H_FRFoot4
+    100048: H_LClaw_Bicep
+    100050: H_LClaw_Forearm
+    100052: H_LClaw_Hand
+    100054: H_LClaw_Pincer
+    100056: H_LEye1
+    100058: H_LEye2
+    100060: H_LEye3
+    100062: H_Platform_BLFoot
+    100064: H_Platform_BRFoot
+    100066: H_Platform_FLFoot
+    100068: H_Platform_FRFoot
+    100070: H_RClaw_Bicep
+    100072: H_RClaw_Forearm
+    100074: H_RClaw_Hand
+    100076: H_RClaw_Pincer
+    100078: H_REye1
+    100080: H_REye2
+    100082: H_REye3
+    100084: H_TriBase
+    100086: Tail
+    400000: Body
+    400002: CATRigTail1
+    400004: CATRigTail2
+    400006: CATRigTail3
+    400008: CATRigTail4
+    400010: CATRigTail5
+    400012: //RootNode
+    400014: H_BLFoot1
+    400016: H_BLFoot2
+    400018: H_BLFoot3
+    400020: H_BLFoot4
+    400022: H_Body
+    400024: H_BRFoot1
+    400026: H_BRFoot2
+    400028: H_BRFoot3
+    400030: H_BRFoot4
+    400032: H_FLFoot1
+    400034: H_FLFoot2
+    400036: H_FLFoot3
+    400038: H_FLFoot4
+    400040: H_FRFoot1
+    400042: H_FRFoot2
+    400044: H_FRFoot3
+    400046: H_FRFoot4
+    400048: H_LClaw_Bicep
+    400050: H_LClaw_Forearm
+    400052: H_LClaw_Hand
+    400054: H_LClaw_Pincer
+    400056: H_LEye1
+    400058: H_LEye2
+    400060: H_LEye3
+    400062: H_Platform_BLFoot
+    400064: H_Platform_BRFoot
+    400066: H_Platform_FLFoot
+    400068: H_Platform_FRFoot
+    400070: H_RClaw_Bicep
+    400072: H_RClaw_Forearm
+    400074: H_RClaw_Hand
+    400076: H_RClaw_Pincer
+    400078: H_REye1
+    400080: H_REye2
+    400082: H_REye3
+    400084: H_TriBase
+    400086: Tail
+    4300000: Body
+    4300002: Tail
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Body
+    13700002: Tail
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Body/Tail
+        weight: 1
+      - path: H_Body
+        weight: 1
+      - path: H_Body/CATRigTail1
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2/CATRigTail3
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2/CATRigTail3/CATRigTail4
+        weight: 1
+      - path: H_Body/CATRigTail1/CATRigTail2/CATRigTail3/CATRigTail4/CATRigTail5
+        weight: 1
+      - path: H_Body/H_BLFoot1
+        weight: 1
+      - path: H_Body/H_BLFoot1/H_BLFoot2
+        weight: 1
+      - path: H_Body/H_BLFoot1/H_BLFoot2/H_BLFoot3
+        weight: 1
+      - path: H_Body/H_BLFoot1/H_BLFoot2/H_BLFoot3/H_BLFoot4
+        weight: 1
+      - path: H_Body/H_BRFoot1
+        weight: 1
+      - path: H_Body/H_BRFoot1/H_BRFoot2
+        weight: 1
+      - path: H_Body/H_BRFoot1/H_BRFoot2/H_BRFoot3
+        weight: 1
+      - path: H_Body/H_BRFoot1/H_BRFoot2/H_BRFoot3/H_BRFoot4
+        weight: 1
+      - path: H_Body/H_FLFoot1
+        weight: 1
+      - path: H_Body/H_FLFoot1/H_FLFoot2
+        weight: 1
+      - path: H_Body/H_FLFoot1/H_FLFoot2/H_FLFoot3
+        weight: 1
+      - path: H_Body/H_FLFoot1/H_FLFoot2/H_FLFoot3/H_FLFoot4
+        weight: 1
+      - path: H_Body/H_FRFoot1
+        weight: 1
+      - path: H_Body/H_FRFoot1/H_FRFoot2
+        weight: 1
+      - path: H_Body/H_FRFoot1/H_FRFoot2/H_FRFoot3
+        weight: 1
+      - path: H_Body/H_FRFoot1/H_FRFoot2/H_FRFoot3/H_FRFoot4
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep/H_LClaw_Forearm
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep/H_LClaw_Forearm/H_LClaw_Hand
+        weight: 1
+      - path: H_Body/H_LClaw_Bicep/H_LClaw_Forearm/H_LClaw_Hand/H_LClaw_Pincer
+        weight: 1
+      - path: H_Body/H_LEye1
+        weight: 1
+      - path: H_Body/H_LEye1/H_LEye2
+        weight: 1
+      - path: H_Body/H_LEye1/H_LEye2/H_LEye3
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep/H_RClaw_Forearm
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep/H_RClaw_Forearm/H_RClaw_Hand
+        weight: 1
+      - path: H_Body/H_RClaw_Bicep/H_RClaw_Forearm/H_RClaw_Hand/H_RClaw_Pincer
+        weight: 1
+      - path: H_Body/H_REye1
+        weight: 1
+      - path: H_Body/H_REye1/H_REye2
+        weight: 1
+      - path: H_Body/H_REye1/H_REye2/H_REye3
+        weight: 1
+      - path: H_Platform_BLFoot
+        weight: 1
+      - path: H_Platform_BRFoot
+        weight: 1
+      - path: H_Platform_FLFoot
+        weight: 1
+      - path: H_Platform_FRFoot
+        weight: 1
+      - path: H_TriBase
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

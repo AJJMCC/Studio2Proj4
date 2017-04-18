@@ -1,0 +1,173 @@
+fileFormatVersion: 2
+guid: 01724619af8ce9c458d15bbe9e1bc0e1
+timeCreated: 1492486074
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: CATRigLArmIKTarget
+    100004: CATRigRArmIKTarget
+    100006: CATRigTail1
+    100008: CATRigTail2
+    100010: CATRigTail3
+    100012: CATRigTail4
+    100014: CATRigTail5
+    100016: //RootNode
+    100018: H_BLFoot1
+    100020: H_BLFoot2
+    100022: H_BLFoot3
+    100024: H_BLFoot4
+    100026: H_Body
+    100028: H_BRFoot1
+    100030: H_BRFoot2
+    100032: H_BRFoot3
+    100034: H_BRFoot4
+    100036: H_FLFoot1
+    100038: H_FLFoot2
+    100040: H_FLFoot3
+    100042: H_FLFoot4
+    100044: H_FRFoot1
+    100046: H_FRFoot2
+    100048: H_FRFoot3
+    100050: H_FRFoot4
+    100052: H_LClaw_Bicep
+    100054: H_LClaw_Forearm
+    100056: H_LClaw_Hand
+    100058: H_LClaw_Pincer
+    100060: H_LEye1
+    100062: H_LEye2
+    100064: H_LEye3
+    100066: H_Platform_BLFoot
+    100068: H_Platform_BRFoot
+    100070: H_Platform_FLFoot
+    100072: H_Platform_FRFoot
+    100074: H_RClaw_Bicep
+    100076: H_RClaw_Forearm
+    100078: H_RClaw_Hand
+    100080: H_RClaw_Pincer
+    100082: H_REye1
+    100084: H_REye2
+    100086: H_REye3
+    100088: H_TriBase
+    100090: Tail
+    400000: Body
+    400002: CATRigLArmIKTarget
+    400004: CATRigRArmIKTarget
+    400006: CATRigTail1
+    400008: CATRigTail2
+    400010: CATRigTail3
+    400012: CATRigTail4
+    400014: CATRigTail5
+    400016: //RootNode
+    400018: H_BLFoot1
+    400020: H_BLFoot2
+    400022: H_BLFoot3
+    400024: H_BLFoot4
+    400026: H_Body
+    400028: H_BRFoot1
+    400030: H_BRFoot2
+    400032: H_BRFoot3
+    400034: H_BRFoot4
+    400036: H_FLFoot1
+    400038: H_FLFoot2
+    400040: H_FLFoot3
+    400042: H_FLFoot4
+    400044: H_FRFoot1
+    400046: H_FRFoot2
+    400048: H_FRFoot3
+    400050: H_FRFoot4
+    400052: H_LClaw_Bicep
+    400054: H_LClaw_Forearm
+    400056: H_LClaw_Hand
+    400058: H_LClaw_Pincer
+    400060: H_LEye1
+    400062: H_LEye2
+    400064: H_LEye3
+    400066: H_Platform_BLFoot
+    400068: H_Platform_BRFoot
+    400070: H_Platform_FLFoot
+    400072: H_Platform_FRFoot
+    400074: H_RClaw_Bicep
+    400076: H_RClaw_Forearm
+    400078: H_RClaw_Hand
+    400080: H_RClaw_Pincer
+    400082: H_REye1
+    400084: H_REye2
+    400086: H_REye3
+    400088: H_TriBase
+    400090: Tail
+    4300000: Body
+    4300002: Tail
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Body
+    13700002: Tail
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
