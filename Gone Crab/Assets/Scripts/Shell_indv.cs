@@ -25,16 +25,17 @@ public class Shell_indv : MonoBehaviour {
 
     private Rigidbody rb;
 
-    private Color Green = new Color32(0,197,50,255);
+    private Color Green = new Color32(137,255,114,255);
     private Color Yellow = new Color32(197, 192, 0, 255);
     private Color Orange = new Color32(255, 132, 0, 255);
-    private Color Red = new Color32(255,0,0,255);
+    private Color Red = new Color32(255,114,114,255);
 
     void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         rb.mass = this.transform.localScale.x * massModifier;
+        rend = this.GetComponentInChildren<Renderer>();
     }
 	
 	void Update ()
