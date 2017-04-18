@@ -389,6 +389,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void OnDie()
     {
-
+        Application.LoadLevel("End Scene");
     }
 }
