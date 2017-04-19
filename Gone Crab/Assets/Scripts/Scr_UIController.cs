@@ -14,8 +14,19 @@ public class Scr_UIController : MonoBehaviour
     public float selectCooldown = 0.2f;
     private float selectTimer;
 
-	// Use this for initialization
-	void Start ()
+    public Sprite ButtonUnhoveredImage;
+    public Vector2 ButtonUnhoveredScale;
+    public Sprite ButtonHoveredImage;
+    public Vector2 ButtonHoveredScale;
+
+    public Vector3 CursorOffset = new Vector3(10,0,0);
+
+    public bool inOptionsMenu = false;
+
+    public GameObject MenuRoot;
+
+    // Use this for initialization
+    void Start ()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
@@ -23,7 +34,10 @@ public class Scr_UIController : MonoBehaviour
         }
         else
             isPaused = false;
-	}
+
+        MouseOver(1);
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -67,6 +81,12 @@ public class Scr_UIController : MonoBehaviour
         }
     }
 
+    void MoveCursor(Vector3 newPos)
+    {
+        selectImage.transform.localPosition = newPos + CursorOffset;
+        selectImage.GetComponent<Animation>().Play();
+    }
+
     // Checks the selected button and calls the corresponding function in the main menu
     void MainMenuSelect ()
     {
@@ -103,8 +123,18 @@ public class Scr_UIController : MonoBehaviour
     // Sets the current selection to the given parameter, moves the selection image to the current selection position
     public void MouseOver (int buttonNum)
     {
+        foreach(Button b in menuButtons)
+        {
+            b.image.rectTransform.sizeDelta = ButtonUnhoveredScale;
+            b.image.sprite = ButtonUnhoveredImage;
+        }
+
+        menuButtons[buttonNum-1].image.rectTransform.sizeDelta = ButtonHoveredScale;
+        menuButtons[buttonNum-1].image.sprite = ButtonHoveredImage;
+        menuButtons[buttonNum-1].GetComponent<Animation>().Play();
+
         currentSelection = buttonNum;
-        selectImage.transform.localPosition = menuButtons[currentSelection - 1].transform.localPosition;
+        MoveCursor(menuButtons[currentSelection - 1].transform.position);
     }
 
     // Increases or decreases the current selection based on the given paramter, moves the selection image to the current selection position
@@ -112,15 +142,47 @@ public class Scr_UIController : MonoBehaviour
     {
         selectTimer = Time.realtimeSinceStartup + selectCooldown;
 
-        if (dir == 1 && currentSelection > 1)
+        if (!inOptionsMenu)
         {
-            currentSelection--;
+            if (dir == 1 && currentSelection > 1)
+            {
+                currentSelection--;
+            }
+            else if (dir == 0 && currentSelection < 4)
+            {
+                currentSelection++;
+            }
         }
-        else if (dir == 0 && currentSelection < menuButtons.Length)
+        else
         {
-            currentSelection++;
+            if (dir == 1 && currentSelection > 5)
+            {
+                currentSelection--;
+            }
+            else if (dir == 0 && currentSelection < 7)
+            {
+                currentSelection++;
+            }
         }
-        selectImage.transform.localPosition = menuButtons[currentSelection - 1].transform.localPosition;
+        MoveCursor(menuButtons[currentSelection - 1].transform.position);
+
+        MouseOver(currentSelection);
+    }
+
+    public void OptionsMenu(bool Entering)
+    {
+        if (Entering)
+        {
+            inOptionsMenu = true;
+            currentSelection = 5;
+            MenuRoot.GetComponent<Animation>().Play("MainMenuToOptionsTransit", PlayMode.StopAll);
+        }
+        else
+        {
+            inOptionsMenu = false;
+            currentSelection = 2;
+            MenuRoot.GetComponent<Animation>().Play("OptionsToMainMenuTransit", PlayMode.StopAll);
+        }
     }
 
     // Loads the main scene
@@ -133,6 +195,7 @@ public class Scr_UIController : MonoBehaviour
     public void OnOptions ()
     {
         Debug.Log("There are no options yet.");
+        OptionsMenu(true);
     }
 
     // Opens the credits screen
