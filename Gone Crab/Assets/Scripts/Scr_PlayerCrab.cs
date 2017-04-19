@@ -25,6 +25,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     [SerializeField]
     private float maxVelocity = 50.0f;
     [SerializeField]
+    private float shellessSpeedBoost = 10.0f;
+    [SerializeField]
     private float turningSpeed = 10.0f;
     [SerializeField]
     private float shellSizeThreshold = 1.0f;
@@ -60,6 +62,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private Vector3 yInteractAmount;
     [SerializeField]
     private Vector3 WaterResistanceVector = new Vector3(100, 10, 0);
+    [SerializeField]
+    private GameObject TailMesh;
     #endregion
 
     #region Private Variables
@@ -114,6 +118,15 @@ public class Scr_PlayerCrab : MonoBehaviour {
         Control();
     }
 
+    float CalcSpeed()
+    {
+        float isShelled = 0;
+
+        if (!MyShell) { isShelled = 1.0f; }
+
+        return ((groundSpeed + (groundSpeed * shellessSpeedBoost * isShelled)) * (this.transform.localScale.x * speedModifier));
+    }
+
     // Updates the position of the crab by taking input from the player
     void Control()
     {
@@ -130,19 +143,17 @@ public class Scr_PlayerCrab : MonoBehaviour {
             MyAnim.SetBool("Walking", false);
         }
 
-
         if (ControlX != 0 && ControlY != 0)
         {
-            
             ControlX = ControlX * 0.707f;
             ControlY = ControlY * 0.707f;
         }
 
         // Add Input Movement
         // X Update
-        rb.MovePosition(rb.position + this.transform.forward * (ControlY * (groundSpeed * (this.transform.localScale.x * speedModifier)) * Time.deltaTime));
+        rb.MovePosition(rb.position + this.transform.forward * (ControlY * CalcSpeed() * Time.deltaTime));
         // Y Update
-        rb.MovePosition(rb.position + this.transform.right * (ControlX * (groundSpeed * (this.transform.localScale.x * speedModifier)) * Time.deltaTime));
+        rb.MovePosition(rb.position + this.transform.right * (ControlX * CalcSpeed() * Time.deltaTime));
         // Clamp Vel
         if (Mathf.Abs(rb.velocity.y) < 0.05)
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity * (this.transform.localScale.x * speedModifier));
@@ -177,7 +188,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
         {
             Debug.Log("ShellOff");
             RemoveShell(false);
-            dialogueController.DisplayLine(7);
         }
     }
 
@@ -204,6 +214,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if (MyShell == null)
         {
+            Shell_indv currentNext = null;
+
             Shell_indv[] ShellsOnMap = FindObjectsOfType<Shell_indv>();
             foreach (Shell_indv shell in ShellsOnMap)
             {
@@ -215,21 +227,29 @@ public class Scr_PlayerCrab : MonoBehaviour {
                         BoardVessel();
                         break;
                     }
-                    else
+                    else if(currentNext == null)
                     {
-                        shell.gameObject.GetComponentInChildren<MeshCollider>().enabled = false;
-                        shell.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                        MyShell = shell;
-                        ShellDoneLerp = false;
-                        MyShellState = "";
-                        if (Scr_AnalyticController.Analytics)
-                        {
-                            Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
-                            Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
-                        }
-                        break;
+                        currentNext = shell;
+                    }
+                    else if(shell.transform.localScale.x > currentNext.transform.localScale.x)
+                    {
+                        currentNext = shell;
                     }
                 }                
+            }
+            if(currentNext != null)
+            {
+                currentNext.gameObject.GetComponentInChildren<MeshCollider>().enabled = false;
+                currentNext.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                MyShell = currentNext;
+                ShellDoneLerp = false;
+                MyShellState = "";
+                Scr_soundmanager.Instance.ShellAdded();
+                if (Scr_AnalyticController.Analytics)
+                {
+                    Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
+                    Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
+                }
             }
         }
     }
@@ -245,7 +265,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if(MyShell != null)
         {
-            if(bDestroyed)
+            if (TailMesh) { TailMesh.SetActive(true); }
+            dialogueController.DisplayLine(7);
+            if (bDestroyed)
                 Destroy(MyShell.gameObject);
             else
             {
@@ -254,6 +276,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 g.gameObject.GetComponentInChildren<MeshCollider>().enabled = true;
                 g.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 g.GetComponent<Rigidbody>().AddForce(ShellSocket.transform.right * ShellPopForce);
+                Scr_soundmanager.Instance.ShellPopped();
             }
         }
     }
@@ -272,6 +295,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             }
             else
             {
+                if (TailMesh) { TailMesh.SetActive(false); }
                 MyShell.gameObject.transform.position = ShellSocket.transform.position;
                 MyShell.gameObject.transform.rotation = ShellSocket.transform.rotation;
             }
@@ -415,7 +439,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
         }
         if (otherObj.transform.tag == "Water")
         {
-            rb.AddForce(WaterResistanceVector);
+            rb.AddForce(WaterResistanceVector, ForceMode.Impulse);
             Debug.Log("Wet Boi");
         }
     }
