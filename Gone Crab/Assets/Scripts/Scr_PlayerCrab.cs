@@ -202,9 +202,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Interactable");
         foreach (GameObject obj in objects)
         {
-            if (Vector3.Distance(this.transform.position, obj.transform.position) < interactDistance * this.transform.localScale.x && obj.GetComponent<Scr_Interactable>().isAcceptable())
+            if (Vector3.Distance(this.transform.position, obj.transform.position) < interactDistance * this.transform.localScale.x)
             {
-                obj.GetComponent<Rigidbody>().AddForce(((obj.transform.position - this.transform.position) + yInteractAmount) * interactForce, ForceMode.Impulse);
+                obj.GetComponent<Rigidbody>().AddForce(((obj.transform.position - this.transform.position) + yInteractAmount) * (interactForce * obj.transform.localScale.x), ForceMode.Impulse);
                 obj.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(obj.transform.position, 1);
             }
         }

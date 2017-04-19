@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Scr_Interactable : MonoBehaviour
 {
-    public float minSize;
-    public float maxSize;
-
-    public float size;
-
     private float Pdistance;
     public float ScaleActiveDist;
     private float ActiveDistance;
@@ -44,51 +39,18 @@ public class Scr_Interactable : MonoBehaviour
     private void ChecksAgainstPlayer()
     {
         Pdistance = Vector3.Distance(this.transform.position, player.transform.position);
-
-        size = this.transform.localScale.x / player.transform.localScale.x;
     }
-
-    public bool isAcceptable()
-    {
-        string shellV = ShellState();
-        if (shellV == "UNACCEPTABLE")
-        {
-            return false;
-        }
-        else
-            return true;
-    }
-
-
-    public string ShellState()
-    {
-        if (size <= maxSize && size >= minSize)
-        {
-            return "Interactable";
-        }
-        else
-            return "UNACCEPTABLE";
-    }
-
 
     private void PrettyLights()
     {
-
         if (Pdistance >= ActiveDistance)
         {
             rend.material.SetColor("_Color", Color.white);
         }
 
-        string colourcheck = ShellState();
-
         if (Pdistance <= ActiveDistance)
         {
-            if (colourcheck == "Interactable")
-            {
-                rend.material.SetColor("_Color", purple);
-            }
-           // else
-               // rend.material.SetColor("_Color", red);
+            rend.material.SetColor("_Color", purple);
         }
     }
 }
