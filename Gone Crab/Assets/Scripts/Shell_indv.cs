@@ -94,24 +94,27 @@ public class Shell_indv : MonoBehaviour {
         }
 
         string colourcheck = ShellState();
-
-        if (Pdistance <= ActiveDistance)
+        if (rend != null)
         {
-            if (colourcheck == "Spacious")
+            if (Pdistance <= ActiveDistance)
             {
-                rend.material.SetColor("_Color", Green);
-            }
-           else  if (colourcheck == "Average")
-            {
-                rend.material.SetColor("_Color", Yellow);
-            }
-            else if (colourcheck == "Tight")
-            {
-                rend.material.SetColor("_Color", Orange);
-            }
-            else
-            {
-                rend.material.SetColor("_Color", Red);
+
+                if (colourcheck == "Spacious")
+                {
+                    rend.material.SetColor("_Color", Green);
+                }
+                else if (colourcheck == "Average")
+                {
+                    rend.material.SetColor("_Color", Yellow);
+                }
+                else if (colourcheck == "Tight")
+                {
+                    rend.material.SetColor("_Color", Orange);
+                }
+                else
+                {
+                    rend.material.SetColor("_Color", Red);
+                }
             }
         }
         

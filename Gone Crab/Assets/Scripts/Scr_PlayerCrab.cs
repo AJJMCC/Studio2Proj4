@@ -15,6 +15,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     [SerializeField]
     private Animator MyAnim;
     private Scr_Dialogue dialogueController;
+
     #endregion
 
     #region Serialized Fields
@@ -268,7 +269,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
             if (TailMesh) { TailMesh.SetActive(true); }
             dialogueController.DisplayLine(7);
             if (bDestroyed)
-                Destroy(MyShell.gameObject);
+            {
+                MyShell.GetComponentInChildren<QuickStart>().enabled = true;
+                Destroy(MyShell.gameObject,1);
+                MyShell = null;
+            }
             else
             {
                 GameObject g = MyShell.gameObject;
@@ -333,7 +338,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if (MyShell == null)
         {
             BurnTimer -= BurnDrainSpeed * Time.deltaTime;
-            //doesnt do anything atm
             if (!toldtostartburning)
             {
                 GetComponent<Scr_CrabColourLerp>().colourchangerate = (  BurnDrainSpeed /BurnTimerMax) ;
@@ -355,7 +359,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
         }
         else
         {
-            //doesnt do anything atm
             if (!toldtostopburning)
             {
                 GetComponent<Scr_CrabColourLerp>().colourhealrate = GetComponent<Scr_CrabColourLerp>().colourchangerate * 2;
@@ -454,9 +457,12 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void OnDie()
     {
-
-
+        RemoveShell(true);
+        MyAnim.SetBool("Died", true);
+        bControlLocked = true;
     }
+
+   
 
 
 
