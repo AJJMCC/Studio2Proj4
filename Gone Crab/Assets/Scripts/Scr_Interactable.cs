@@ -11,6 +11,7 @@ public class Scr_Interactable : MonoBehaviour
 
     private Rigidbody rb;
 
+    public float maxRotationVelocity;
     public float MassMultiplier;
 
     [SerializeField]
@@ -25,6 +26,7 @@ public class Scr_Interactable : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         rb.mass = transform.localScale.x * MassMultiplier;
+        rb.maxAngularVelocity = maxRotationVelocity;
     }
 	
 	// Update is called once per frame
