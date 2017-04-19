@@ -239,7 +239,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             }
             if(currentNext != null)
             {
-                currentNext.gameObject.GetComponentInChildren<MeshCollider>().enabled = false;
+                currentNext.gameObject.GetComponentInChildren<Collider>().enabled = false;
                 currentNext.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 MyShell = currentNext;
                 ShellDoneLerp = false;
@@ -273,7 +273,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             {
                 GameObject g = MyShell.gameObject;
                 MyShell = null;
-                g.gameObject.GetComponentInChildren<MeshCollider>().enabled = true;
+                g.gameObject.GetComponentInChildren<Collider>().enabled = true;
                 g.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 g.GetComponent<Rigidbody>().AddForce(ShellSocket.transform.right * ShellPopForce);
                 Scr_soundmanager.Instance.ShellPopped();
@@ -336,7 +336,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             //doesnt do anything atm
             if (!toldtostartburning)
             {
-                GetComponent<Scr_CrabColourLerp>().colourchangerate = (BurnTimerMax / BurnDrainSpeed / 100) / 4;
+                GetComponent<Scr_CrabColourLerp>().colourchangerate = (  BurnDrainSpeed /BurnTimerMax) ;
 
                 GetComponent<Scr_CrabColourLerp>().BurnTime();
                 toldtostartburning = true;
@@ -454,7 +454,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void OnDie()
     {
-        Application.LoadLevel("End Scene");
+
+
     }
 
 
