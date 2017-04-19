@@ -15,7 +15,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
     [SerializeField]
     private Animator MyAnim;
     private Scr_Dialogue dialogueController;
-
+    [SerializeField]
+    private QuickStart quickstart;
+    [SerializeField]
+    private GameObject ExplosionPrefab;
     #endregion
 
     #region Serialized Fields
@@ -75,6 +78,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private string MyShellState;
     private bool ShellDoneLerp = false;
 
+    private bool PControl = true;
 
     private bool toldtostartburning;
     private bool toldtostopburning;
@@ -116,7 +120,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
     void FixedUpdate()
     {
         // Call Control function
-        Control();
+        if (PControl)
+        {
+            Control();
+
+        }
     }
 
     float CalcSpeed()
@@ -458,8 +466,17 @@ public class Scr_PlayerCrab : MonoBehaviour {
     void OnDie()
     {
         RemoveShell(true);
-        MyAnim.SetBool("Died", true);
+        
         bControlLocked = true;
+        PControl = false;
+        quickstart.enabled = true;
+        ExplosionPrefab.SetActive(true);
+        Invoke("EndGame1", 2);
+    }
+
+    void EndGame1()
+    {
+        this.GetComponent<SCR_GameEnder>().EndGame();
     }
 
    

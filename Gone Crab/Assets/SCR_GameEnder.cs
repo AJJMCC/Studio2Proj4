@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SCR_GameEnder : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public Material rend;
+    private Color StartCol = Color.white;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -16,6 +18,7 @@ public class SCR_GameEnder : MonoBehaviour {
 
     public void EndGame()
     {
+        rend.SetColor("_Color", StartCol);
         Application.LoadLevel("End Scene");
     }
 }

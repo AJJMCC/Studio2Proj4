@@ -15,7 +15,7 @@ public class Shell_indv : MonoBehaviour {
     private float Size;
     private float Pdistance;
     public float ScaleActiveDist;
-    private float ActiveDistance = 10;
+    private float ActiveDistance = 20;
     private GameObject player;
     
     [SerializeField]
@@ -24,6 +24,9 @@ public class Shell_indv : MonoBehaviour {
     private float massModifier;
 
     private Rigidbody rb;
+
+    [SerializeField]
+    private GameObject ShellMesh;
 
     private Color Green = new Color32(137,255,114,255);
     private Color Yellow = new Color32(197, 192, 0, 255);
@@ -91,6 +94,7 @@ public class Shell_indv : MonoBehaviour {
         if (Pdistance >= ActiveDistance)
         {
             rend.material.SetColor("_Color", Color.white);
+            ShellMesh.GetComponent<cakeslice.Outline>().enabled = false;
         }
 
         string colourcheck = ShellState();
@@ -101,19 +105,28 @@ public class Shell_indv : MonoBehaviour {
 
                 if (colourcheck == "Spacious")
                 {
-                    rend.material.SetColor("_Color", Green);
+                    ShellMesh.GetComponent<cakeslice.Outline>().enabled = true;
+                    ShellMesh.GetComponent<cakeslice.Outline>().color = 0;
+                   // rend.material.SetColor("_Color", Green);
                 }
                 else if (colourcheck == "Average")
                 {
-                    rend.material.SetColor("_Color", Yellow);
+                    ShellMesh.GetComponent<cakeslice.Outline>().enabled = true;
+
+                    ShellMesh.GetComponent<cakeslice.Outline>().color = 1;
+                   // rend.material.SetColor("_Color", Yellow);
                 }
                 else if (colourcheck == "Tight")
                 {
-                    rend.material.SetColor("_Color", Orange);
+                    ShellMesh.GetComponent<cakeslice.Outline>().enabled = true;
+
+                    ShellMesh.GetComponent<cakeslice.Outline>().color = 2;
+                    //rend.material.SetColor("_Color", Orange);
                 }
                 else
                 {
-                    rend.material.SetColor("_Color", Red);
+                    ShellMesh.GetComponent<cakeslice.Outline>().enabled = false;
+                   // rend.material.SetColor("_Color", Red);
                 }
             }
         }
