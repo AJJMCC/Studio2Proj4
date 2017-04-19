@@ -11,7 +11,8 @@ public class Scr_UIController : MonoBehaviour
     public Image selectImage;
     public Button[] menuButtons;
     public GameObject menu;
-    //public float selectSpeed = 50000;
+    public float selectCooldown = 0.2f;
+    private float selectTimer;
 
 	// Use this for initialization
 	void Start ()
@@ -27,16 +28,13 @@ public class Scr_UIController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        //selectImage.transform.localPosition = Vector3.MoveTowards(selectImage.transform.localPosition, menuButtons[currentSelection - 1].transform.localPosition, selectSpeed * Time.deltaTime);
-
         if (isPaused)
         {
-            // These KeyDowns may need to be changed, didn't use axis to avoid using cooldown bool
-            if (Input.GetButtonDown("Up"))
+            if (Input.GetAxis("Vertical") > 0 && selectTimer <= Time.realtimeSinceStartup)
             {
                 ChangeSelection(1);
             }
-            else if (Input.GetButtonDown("Down"))
+            else if (Input.GetAxis("Vertical") < 0 && selectTimer <= Time.realtimeSinceStartup)
             {
                 ChangeSelection(0);
             }
@@ -112,6 +110,8 @@ public class Scr_UIController : MonoBehaviour
     // Increases or decreases the current selection based on the given paramter, moves the selection image to the current selection position
     void ChangeSelection (int dir)
     {
+        selectTimer = Time.realtimeSinceStartup + selectCooldown;
+
         if (dir == 1 && currentSelection > 1)
         {
             currentSelection--;
