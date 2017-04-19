@@ -14,6 +14,10 @@ public class Scr_Interactable : MonoBehaviour
     private float ActiveDistance;
     private GameObject player;
 
+    private Rigidbody rb;
+
+    public float MassMultiplier;
+
     [SerializeField]
     private Renderer rend;
 
@@ -24,6 +28,8 @@ public class Scr_Interactable : MonoBehaviour
 	void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody>();
+        rb.mass = transform.localScale.x * MassMultiplier;
     }
 	
 	// Update is called once per frame
@@ -81,8 +87,8 @@ public class Scr_Interactable : MonoBehaviour
             {
                 rend.material.SetColor("_Color", purple);
             }
-            else
-                rend.material.SetColor("_Color", red);
+           // else
+               // rend.material.SetColor("_Color", red);
         }
     }
 }

@@ -12,6 +12,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private Shell_indv MyShell;
     [SerializeField]
     private GameObject ShellSocket;
+    [SerializeField]
+    private Animator MyAnim;
     private Scr_Dialogue dialogueController;
     #endregion
 
@@ -67,6 +69,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float StoredHeight = 0.0f;
     private string MyShellState;
     private bool ShellDoneLerp = false;
+
+
+    private bool toldtostartburning;
+    private bool toldtostopburning;
     #endregion
 
     public bool bControlLocked = false;
@@ -115,8 +121,19 @@ public class Scr_PlayerCrab : MonoBehaviour {
         float ControlX = Input.GetAxis("Vertical");
         float ControlY = Input.GetAxis("Horizontal") * -1.0f;
 
+        if (ControlX != 0 || ControlY != 0)
+        {
+            MyAnim.SetBool("Walking", true);
+        }
+        else
+        {
+            MyAnim.SetBool("Walking", false);
+        }
+
+
         if (ControlX != 0 && ControlY != 0)
         {
+            
             ControlX = ControlX * 0.707f;
             ControlY = ControlY * 0.707f;
         }
@@ -292,6 +309,15 @@ public class Scr_PlayerCrab : MonoBehaviour {
         if (MyShell == null)
         {
             BurnTimer -= BurnDrainSpeed * Time.deltaTime;
+            //doesnt do anything atm
+            if (!toldtostartburning)
+            {
+                GetComponent<Scr_CrabColourLerp>().colourchangerate = (BurnTimerMax / BurnDrainSpeed / 100) / 4;
+
+                GetComponent<Scr_CrabColourLerp>().BurnTime();
+                toldtostartburning = true;
+                toldtostopburning = false;
+            }
             if (BurnTimer <= 0)
             {
                 BurnTimer = 0;
@@ -305,6 +331,17 @@ public class Scr_PlayerCrab : MonoBehaviour {
         }
         else
         {
+            //doesnt do anything atm
+            if (!toldtostopburning)
+            {
+                GetComponent<Scr_CrabColourLerp>().colourhealrate = GetComponent<Scr_CrabColourLerp>().colourchangerate * 2;
+                  Debug.Log("calledheal from crabcolour");
+                GetComponent<Scr_CrabColourLerp>().HealTime();
+                toldtostopburning = true;
+                toldtostartburning = false;
+            }
+
+
             BurnTimer += BurnHealSpeed * Time.deltaTime;
             if (BurnTimer >= BurnTimerMax)
             {
@@ -395,4 +432,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         Application.LoadLevel("End Scene");
     }
+
+
+
 }
