@@ -28,14 +28,39 @@ public class Scr_CameraScript : MonoBehaviour
 
     Quaternion originalRotation;
 
+    private int Sensitivity = 3;
+    private bool Inverted = false;
+
+    void Start()
+    {
+        // Load Options
+        Sensitivity = PlayerPrefs.GetInt("LookSensitivity", 3) + 1;
+
+        sensitivityX = Sensitivity * sensitivityX;
+        sensitivityY = Sensitivity * sensitivityY;
+
+        int inv = PlayerPrefs.GetInt("Inverted", 0);
+        if (inv > 0)
+            Inverted = true;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb)
+            rb.freezeRotation = true;
+        originalRotation = transform.localRotation;
+    }
+
     void Update()
     {
-        if (!FindObjectOfType<Scr_PlayerCrab>().bControlLocked)
-        {
+        //if (!FindObjectOfType<Scr_PlayerCrab>().bControlLocked)
+        //{
             rotAverageY = 0f;
             rotAverageX = 0f;
 
-            rotationY -= (Input.GetAxis("Mouse Y") + (-Input.GetAxis("RightV")/4)) * sensitivityY;
+            float inv = 1.0f;
+            if (Inverted)
+                inv = -1.0f;
+
+            rotationY -= (Input.GetAxis("Mouse Y") + (-Input.GetAxis("RightV")/4)) * sensitivityY * inv;
             rotationX += (Input.GetAxis("Mouse X") + Input.GetAxis("RightH")/2) * sensitivityX;
 
             rotationY = ClampAngle(rotationY, minimumY, maximumY);
@@ -72,17 +97,9 @@ public class Scr_CameraScript : MonoBehaviour
             Quaternion xQuaternion = Quaternion.AngleAxis(rotAverageX, Vector3.up);
 
             transform.localRotation = originalRotation * xQuaternion * yQuaternion;
-        }
+        //}
 
         transform.position = FollowGO.transform.position;
-    }
-
-    void Start()
-    {
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb)
-            rb.freezeRotation = true;
-        originalRotation = transform.localRotation;
     }
 
     public static float ClampAngle(float angle, float min, float max)

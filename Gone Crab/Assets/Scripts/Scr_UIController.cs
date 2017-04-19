@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class Scr_UIController : MonoBehaviour
 {
+    public bool isMainMenu = true;
+    public bool resetOnStart = false;
+
     int currentSelection = 1;
-    bool isPaused = false;
+    public bool isPaused = false;
     public Image selectImage;
     public Button[] menuButtons;
     public GameObject menu;
@@ -25,18 +28,28 @@ public class Scr_UIController : MonoBehaviour
 
     public GameObject MenuRoot;
 
+    private int Sensitivity = 3;
+    private bool Inverted = false;
+
+    public Image SensitivitySlider;
+    public Sprite[] SensitivityFrames;
+    public Image CheckMark;
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            isPaused = true;
-        }
-        else
-            isPaused = false;
+        // Load Options
+        Sensitivity = PlayerPrefs.GetInt("LookSensitivity", 3);
+        int inv = PlayerPrefs.GetInt("Inverted", 0);
+        if (inv > 0)
+            Inverted = true;
+
+        SetOptionsGraphics();
 
         MouseOver(1);
 
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+            OnResume();
     }
 	
 	// Update is called once per frame
@@ -63,6 +76,10 @@ public class Scr_UIController : MonoBehaviour
                 else if (SceneManager.GetActiveScene().buildIndex == 1)
                 {
                     InLevelSelect();
+                }
+                else if (SceneManager.GetActiveScene().buildIndex == 2)
+                {
+                    InEndGame();
                 }
             }
         }
@@ -106,6 +123,18 @@ public class Scr_UIController : MonoBehaviour
         {
             OnQuit();
         }
+        else if (currentSelection == 5)
+        {
+            OnChangeSensitivity();
+        }
+        else if (currentSelection == 6)
+        {
+            OnToggleInverted();
+        }
+        else if (currentSelection == 7)
+        {
+            OnBackToMenu();
+        }
     }
 
     // Checks the selected button and calls the corresponding function in the pause menu
@@ -120,6 +149,20 @@ public class Scr_UIController : MonoBehaviour
             LoadScene(0);
         }
     }
+
+    // Checks the selected button and calls the corresponding function in the end game menu
+    void InEndGame()
+    {
+        if (currentSelection == 1)
+        {
+            LoadScene(1);
+        }
+        else if (currentSelection == 2)
+        {
+            LoadScene(0);
+        }
+    }
+
     // Sets the current selection to the given parameter, moves the selection image to the current selection position
     public void MouseOver (int buttonNum)
     {
@@ -142,24 +185,38 @@ public class Scr_UIController : MonoBehaviour
     {
         selectTimer = Time.realtimeSinceStartup + selectCooldown;
 
-        if (!inOptionsMenu)
+        if (isMainMenu)
+        {
+            if (!inOptionsMenu)
+            {
+                if (dir == 1 && currentSelection > 1)
+                {
+                    currentSelection--;
+                }
+                else if (dir == 0 && currentSelection < 4)
+                {
+                    currentSelection++;
+                }
+            }
+            else
+            {
+                if (dir == 1 && currentSelection > 5)
+                {
+                    currentSelection--;
+                }
+                else if (dir == 0 && currentSelection < 7)
+                {
+                    currentSelection++;
+                }
+            }
+        }
+        else
         {
             if (dir == 1 && currentSelection > 1)
             {
                 currentSelection--;
             }
-            else if (dir == 0 && currentSelection < 4)
-            {
-                currentSelection++;
-            }
-        }
-        else
-        {
-            if (dir == 1 && currentSelection > 5)
-            {
-                currentSelection--;
-            }
-            else if (dir == 0 && currentSelection < 7)
+            else if (dir == 0 && currentSelection < 2)
             {
                 currentSelection++;
             }
@@ -183,6 +240,7 @@ public class Scr_UIController : MonoBehaviour
             currentSelection = 2;
             MenuRoot.GetComponent<Animation>().Play("OptionsToMainMenuTransit", PlayMode.StopAll);
         }
+        MouseOver(currentSelection);
     }
 
     // Loads the main scene
@@ -215,7 +273,8 @@ public class Scr_UIController : MonoBehaviour
     {
         menu.SetActive(true);
         isPaused = true;
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        FindObjectOfType<Scr_PlayerCrab>().bControlLocked = true;
     }
 
     // Deactivates the pause menu and sets the time scale to one
@@ -223,6 +282,47 @@ public class Scr_UIController : MonoBehaviour
     {
         menu.SetActive(false);
         isPaused = false;
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
+        FindObjectOfType<Scr_PlayerCrab>().bControlLocked = false;
+    }
+
+    // Adjusts the sensitivity
+    public void OnChangeSensitivity()
+    {
+        Sensitivity++;
+        if (Sensitivity > 5)
+            Sensitivity = 0;
+
+        PlayerPrefs.SetInt("LookSensitivity", Sensitivity);
+
+        SetOptionsGraphics();
+    }
+
+    // Toggles Look Inversion
+    public void OnToggleInverted()
+    {
+        Inverted = !Inverted;
+
+        if (Inverted)
+            PlayerPrefs.SetInt("Inverted", 1);
+        else
+            PlayerPrefs.SetInt("Inverted", 0);
+
+        SetOptionsGraphics();
+    }
+
+    // Returns to the main menu
+    public void OnBackToMenu()
+    {
+        OptionsMenu(false);
+    }
+
+    private void SetOptionsGraphics()
+    {
+        if (isMainMenu)
+        {
+            SensitivitySlider.sprite = SensitivityFrames[Sensitivity];
+            CheckMark.enabled = Inverted;
+        }
     }
 }

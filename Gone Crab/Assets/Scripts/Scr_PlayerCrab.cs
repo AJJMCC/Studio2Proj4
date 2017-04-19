@@ -120,10 +120,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
     void FixedUpdate()
     {
         // Call Control function
-        if (PControl)
+        if (!bControlLocked)
         {
             Control();
-
         }
     }
 
