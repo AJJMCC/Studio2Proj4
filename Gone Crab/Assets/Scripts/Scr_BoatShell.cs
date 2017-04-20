@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scr_BoatShell : Shell_indv {
 
+    [SerializeField]
     private GameObject playercrab;
     [SerializeField]
     private Transform playerpos;
@@ -15,8 +16,9 @@ public class Scr_BoatShell : Shell_indv {
     public void CalledByPlayer()
     {
         playercrab = GameObject.FindGameObjectWithTag("Player");
-        StartCoroutine("crabtoboat");
+       // StartCoroutine("crabtoboat");
         moving = true;
+        Debug.Log("boat recieved call");
         //call soundmanager boat noises
     }
 
@@ -24,22 +26,28 @@ public class Scr_BoatShell : Shell_indv {
     {
         if (moving)
         {
-            transform.position += transform.forward * 0.1f;
+            transform.position -= transform.forward * 0.34f;
+            playercrab.transform.position = playerpos.position;
+            playercrab.transform.rotation = playerpos.rotation;
                
         }
     }
     IEnumerator crabtoboat()
     {
+
+        Debug.Log("boat started coroutine");
+
         if (playercrab.transform.position != playerpos.position)
         {
-            playercrab.transform.position = Vector3.Lerp(playercrab.transform.position, playerpos.position, 0.2f);
+            playercrab.transform.position = Vector3.Lerp(playercrab.transform.position, playerpos.position, 0.3f * Time.deltaTime);
 
             if(playercrab.transform.rotation != playerpos.rotation)
             {
-                playercrab.transform.rotation = Quaternion.Lerp(playercrab.transform.rotation, playerpos.rotation, 0.2f);
+                playercrab.transform.rotation = Quaternion.Lerp(playercrab.transform.rotation, playerpos.rotation, 0.2f * Time.deltaTime);
             }
+            yield return null;
         }
-        yield return null;
+       
     }
 
 }

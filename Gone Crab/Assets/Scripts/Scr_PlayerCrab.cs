@@ -247,7 +247,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 {
                     if (shell.tag == "Boat")
                     {
-                        BoardVessel();
+                        BoardVessel(shell);
                         break;
                     }
                     else if(currentNext == null)
@@ -277,10 +277,13 @@ public class Scr_PlayerCrab : MonoBehaviour {
         }
     }
 
-    void BoardVessel()
+    void BoardVessel(Shell_indv Boat)
     {
-        Scr_BoatShell boat = (Scr_BoatShell)MyShell;
-        boat.CalledByPlayer();
+        MyAnim.SetBool("Walking", false);
+        bControlLocked = true;
+        Debug.Log("board vessel called");
+        Boat.gameObject.GetComponent<Scr_BoatShell>().CalledByPlayer();
+        Invoke("EndGame1", 5);
     }
 
     // Todo: This is just shit and temp lmao
@@ -293,6 +296,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             if (bDestroyed)
             {
                 MyShell.GetComponentInChildren<QuickStart>().enabled = true;
+                Scr_soundmanager.Instance.Falling();
                 Destroy(MyShell.gameObject,1);
                 MyShell = null;
             }

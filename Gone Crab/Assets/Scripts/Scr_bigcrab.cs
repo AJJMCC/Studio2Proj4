@@ -30,12 +30,12 @@ public class Scr_bigcrab : MonoBehaviour {
     {
         Pdist = Vector3.Distance(this.transform.position, playercrab.transform.position);
 
-        if (Pdist <= 25 && playercrab.transform.localScale.x < 11)
+        if (Pdist <= 35 && playercrab.transform.localScale.x < 11)
         {
             thisanim.SetTrigger("Raise claws");
         }
 
-        else if (Pdist <= 30 && playercrab.transform.localScale.x >= 11)
+        else if (Pdist <= 35 && playercrab.transform.localScale.x >= 11)
         {
             if (!toldtorun)
             {
