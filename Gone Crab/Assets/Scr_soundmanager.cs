@@ -21,14 +21,14 @@ public class Scr_soundmanager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if (Input.GetKeyDown("w"))
-        {
-            ChangeWalkClip(0);
-        }
-        else if (Input.GetKeyDown("s"))
-        {
-            ChangeWalkClip(1);
-        }
+		//if (Input.GetKeyDown("w"))
+  //      {
+  //          ChangeWalkClip(0);
+  //      }
+  //      else if (Input.GetKeyDown("s"))
+  //      {
+  //          ChangeWalkClip(1);
+  //      }
 	}
 
     // Plays the shell on clip
