@@ -25,6 +25,7 @@ public class Scr_UIController : MonoBehaviour
     public Vector3 CursorOffset = new Vector3(10,0,0);
 
     public bool inOptionsMenu = false;
+    public bool CreditsShown = false;
 
     public GameObject MenuRoot;
 
@@ -36,10 +37,19 @@ public class Scr_UIController : MonoBehaviour
     public Image CheckMark;
 
     public Image Splash;
+    public Image Crederoonies;
+    public Image LoadScreen;
+
+    private int PlayOpenLoad;
 
     // Use this for initialization
     void Start()
     {
+        PlayOpenLoad = PlayerPrefs.GetInt("ShowLoadClose", 0);
+
+        if (PlayOpenLoad == 1)
+            OpenLoadScreen(false);
+
         // Load Options
         Sensitivity = PlayerPrefs.GetInt("LookSensitivity", 3);
         int inv = PlayerPrefs.GetInt("Inverted", 0);
@@ -226,6 +236,7 @@ public class Scr_UIController : MonoBehaviour
         MoveCursor(menuButtons[currentSelection - 1].transform.position);
 
         MouseOver(currentSelection);
+        OpenCredits(false);
     }
 
     public void OptionsMenu(bool Entering)
@@ -246,23 +257,48 @@ public class Scr_UIController : MonoBehaviour
         MouseOver(currentSelection);
     }
 
+    public void OpenCredits(bool newCreds)
+    {
+        if (newCreds != CreditsShown)
+        {
+            CreditsShown = newCreds;
+            if (CreditsShown)
+            {
+                Crederoonies.GetComponent<Animation>().Play("ShowCredits");
+            }
+            else
+            {
+                Crederoonies.GetComponent<Animation>().Play("HideCredits");
+            }
+        }
+    }
+
     // Loads the main scene
     public void LoadScene (int index)
     {
+        StartCoroutine(LoadSceneCo(1.0f, index));
+        OpenLoadScreen(true);
+        PlayerPrefs.SetInt("ShowLoadClose", 1);
+    }
+
+    // LoadSceneCoroutine
+    IEnumerator LoadSceneCo(float time, int index)
+    {
+        yield return new WaitForSeconds(time);
+
         SceneManager.LoadScene(index);
     }
 
     // Opens the options menu
     public void OnOptions ()
     {
-        Debug.Log("There are no options yet.");
         OptionsMenu(true);
     }
 
     // Opens the credits screen
     public void OnCredits ()
     {
-        Debug.Log("There are no credits yet.");
+        OpenCredits(!CreditsShown);
     }
 
     // Quits the application
@@ -326,6 +362,21 @@ public class Scr_UIController : MonoBehaviour
         {
             SensitivitySlider.sprite = SensitivityFrames[Sensitivity];
             CheckMark.enabled = Inverted;
+        }
+    }
+
+    public void OpenLoadScreen(bool opening)
+    {
+        if (LoadScreen)
+        {
+            if (opening)
+                LoadScreen.GetComponent<Animation>().Play("LoadingScreenOpen");
+            else
+                LoadScreen.GetComponent<Animation>().Play("LoadingScreenClose");
+        }
+        else
+        {
+            Debug.Log("MISSING LOAD SCREEN");
         }
     }
 }

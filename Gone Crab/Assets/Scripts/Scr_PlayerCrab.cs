@@ -85,6 +85,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     private float ControlX;
     private float ControlY;
+
+    private float TimeTaken = 0.0f;
     #endregion
 
     public bool bControlLocked = false;
@@ -118,6 +120,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
             // Baby gon do the first worderinos <3 <3
             DialougeUpdate();
         }
+
+        TimeTaken += Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -151,17 +155,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
             bMoving = true;
         }
         MyAnim.SetBool("Walking", bMoving);
-
-
-        // Add Input Movement
-        // X Update
-        //rb.MovePosition(rb.position + this.transform.forward * (ControlY * CalcSpeed() * Time.deltaTime));
-        // Y Update
-        //rb.MovePosition(rb.position + this.transform.right * (ControlX * CalcSpeed() * Time.deltaTime));
-
-        //this.transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0), turningSpeed * Time.deltaTime);
-
-        // Rotation
        
 
         // Movement & Rotation
@@ -174,29 +167,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
             this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler( 0, -90, 0) * Quaternion.Euler(CamRot) * Quaternion.Euler(new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0)), turningSpeed * Time.deltaTime);
             rb.MovePosition(rb.position + this.transform.right * (CalcSpeed() * Time.deltaTime));
         }
-
-        /*
-        // Clamp Vel
-        if (Mathf.Abs(rb.velocity.y) < 0.05)
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity * (this.transform.localScale.x * speedModifier));
-
-        // Updating Rotation
-        Quaternion t = Quaternion.identity;
-        if(ControlX != 0 || ControlY != 0)
-        {
-            t = CameraBoom.transform.rotation;
-        }
-        else
-        {
-            t = this.transform.rotation;
-        }
-        t = Quaternion.Lerp(this.transform.rotation, t, turningSpeed * Time.deltaTime);
-        Vector3 r = t.eulerAngles;
-        r.x = 0;
-        r.z = 0;
-        t.eulerAngles = r;
-        this.transform.rotation = t;
-        */
     }
 
     // Handles Shell equipping and dropping when manually called by the player.
@@ -490,11 +460,16 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void EndGame1()
     {
+        SaveStats();
         this.GetComponent<SCR_GameEnder>().EndGame();
     }
 
-   
-
-
-
+    void SaveStats()
+    {
+        PlayerPrefs.SetString("Size", "Size: " + Mathf.Floor(this.transform.localScale.x - 0.1f).ToString() + "/10");
+        if(TimeTaken >= 999.0f)
+            PlayerPrefs.SetString("Time", "Time: 999s");
+        else
+            PlayerPrefs.SetString("Time", "Time: " + Mathf.Floor(TimeTaken).ToString() + "s");
+    }
 }
