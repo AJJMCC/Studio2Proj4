@@ -141,24 +141,16 @@ public class Scr_PlayerCrab : MonoBehaviour {
     // Updates the position of the crab by taking input from the player
     void Control()
     {
+        bool bMoving = false;
+
         // TODO: Get this infor from our Input Script
-        ControlX = Input.GetAxis("Vertical");
-        ControlY = Input.GetAxis("Horizontal") * -1.0f;
-
-        if (ControlX != 0 || ControlY != 0)
+        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
         {
-            MyAnim.SetBool("Walking", true);
+            ControlX = Input.GetAxis("Vertical") * -1.0f;
+            ControlY = Input.GetAxis("Horizontal");
+            bMoving = true;
         }
-        else
-        {
-            MyAnim.SetBool("Walking", false);
-        }
-
-        if (ControlX != 0 && ControlY != 0)
-        {
-            ControlX = ControlX * 0.707f;
-            ControlY = ControlY * 0.707f;
-        }
+        MyAnim.SetBool("Walking", bMoving);
 
 
         // Add Input Movement
@@ -168,7 +160,20 @@ public class Scr_PlayerCrab : MonoBehaviour {
         //rb.MovePosition(rb.position + this.transform.right * (ControlX * CalcSpeed() * Time.deltaTime));
 
         //this.transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0), turningSpeed * Time.deltaTime);
-        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0)), turningSpeed * Time.deltaTime);
+
+        // Rotation
+       
+
+        // Movement & Rotation
+        if (bMoving)
+        {
+            Vector3 CamRot = CameraBoom.transform.eulerAngles;
+            CamRot.x = 0;
+            CamRot.y += 180;
+            CamRot.z = 0;
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(CamRot) * Quaternion.Euler(new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0)), turningSpeed * Time.deltaTime);
+            rb.MovePosition(rb.position + this.transform.forward * (CalcSpeed() * Time.deltaTime));
+        }
 
         /*
         // Clamp Vel

@@ -53,7 +53,7 @@ public class Scr_CrabColourLerp : MonoBehaviour {
         //need to sync this up with the time it takes to burn. 
        while(CurrentColor != EndCol)
         {
-            Debug.Log("startedcolourlerp");
+            //Debug.Log("startedcolourlerp");
             CurrentColor = Color.Lerp(StartCol, EndCol, curve.Evaluate(percentthru));
             rend.SetColor("_Color", CurrentColor);
             percentthru += colourchangerate *  Time.deltaTime;
