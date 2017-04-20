@@ -171,8 +171,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
             CamRot.x = 0;
             CamRot.y += 180;
             CamRot.z = 0;
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(CamRot) * Quaternion.Euler(new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0)), turningSpeed * Time.deltaTime);
-            rb.MovePosition(rb.position + this.transform.forward * (CalcSpeed() * Time.deltaTime));
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler( 0, -90, 0) * Quaternion.Euler(CamRot) * Quaternion.Euler(new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0)), turningSpeed * Time.deltaTime);
+            rb.MovePosition(rb.position + this.transform.right * (CalcSpeed() * Time.deltaTime));
         }
 
         /*

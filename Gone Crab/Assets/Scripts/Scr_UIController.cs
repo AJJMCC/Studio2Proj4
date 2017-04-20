@@ -35,6 +35,8 @@ public class Scr_UIController : MonoBehaviour
     public Sprite[] SensitivityFrames;
     public Image CheckMark;
 
+    public Image Splash;
+
     // Use this for initialization
     void Start()
     {
@@ -233,6 +235,7 @@ public class Scr_UIController : MonoBehaviour
             inOptionsMenu = true;
             currentSelection = 5;
             MenuRoot.GetComponent<Animation>().Play("MainMenuToOptionsTransit", PlayMode.StopAll);
+            Splash.GetComponent<Animation>().Play("SplashIntoOptions", PlayMode.StopAll);
         }
         else
         {
