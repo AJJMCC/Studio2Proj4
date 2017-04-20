@@ -82,6 +82,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     private bool toldtostartburning;
     private bool toldtostopburning;
+
+    private float ControlX;
+    private float ControlY;
     #endregion
 
     public bool bControlLocked = false;
@@ -139,8 +142,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     void Control()
     {
         // TODO: Get this infor from our Input Script
-        float ControlX = Input.GetAxis("Vertical");
-        float ControlY = Input.GetAxis("Horizontal") * -1.0f;
+        ControlX = Input.GetAxis("Vertical");
+        ControlY = Input.GetAxis("Horizontal") * -1.0f;
 
         if (ControlX != 0 || ControlY != 0)
         {
@@ -157,11 +160,17 @@ public class Scr_PlayerCrab : MonoBehaviour {
             ControlY = ControlY * 0.707f;
         }
 
+
         // Add Input Movement
         // X Update
-        rb.MovePosition(rb.position + this.transform.forward * (ControlY * CalcSpeed() * Time.deltaTime));
+        //rb.MovePosition(rb.position + this.transform.forward * (ControlY * CalcSpeed() * Time.deltaTime));
         // Y Update
-        rb.MovePosition(rb.position + this.transform.right * (ControlX * CalcSpeed() * Time.deltaTime));
+        //rb.MovePosition(rb.position + this.transform.right * (ControlX * CalcSpeed() * Time.deltaTime));
+
+        //this.transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0), turningSpeed * Time.deltaTime);
+        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(new Vector3(0, Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI, 0)), turningSpeed * Time.deltaTime);
+
+        /*
         // Clamp Vel
         if (Mathf.Abs(rb.velocity.y) < 0.05)
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity * (this.transform.localScale.x * speedModifier));
@@ -182,6 +191,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
         r.z = 0;
         t.eulerAngles = r;
         this.transform.rotation = t;
+        */
     }
 
     // Handles Shell equipping and dropping when manually called by the player.
