@@ -10,8 +10,9 @@ public class Scr_BoatShell : Shell_indv {
     private Transform playerpos;
 
     private bool moving;
-    
 
+    [SerializeField]
+    private Camera boatcam;
 
     public void CalledByPlayer()
     {
@@ -20,16 +21,21 @@ public class Scr_BoatShell : Shell_indv {
         moving = true;
         Debug.Log("boat recieved call");
         //call soundmanager boat noises
+
+
+        playercrab.transform.position = playerpos.position;
+        playercrab.transform.rotation = playerpos.rotation;
+        playercrab.transform.SetParent(playerpos);
+        boatcam = Camera.main;
     }
 
      void Update()
     {
         if (moving)
         {
-            transform.position -= transform.forward * 0.34f;
+            transform.position -= transform.forward * 0.2f;
             playercrab.transform.position = playerpos.position;
-            playercrab.transform.rotation = playerpos.rotation;
-               
+
         }
     }
     IEnumerator crabtoboat()

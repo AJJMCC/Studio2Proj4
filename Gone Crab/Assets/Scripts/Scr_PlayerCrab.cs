@@ -254,6 +254,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
         Debug.Log("board vessel called");
         Boat.gameObject.GetComponent<Scr_BoatShell>().CalledByPlayer();
         Invoke("EndGame1", 5);
+        CameraBoom.GetComponentInChildren<Camera>().enabled = false;
     }
 
     // Todo: This is just shit and temp lmao
