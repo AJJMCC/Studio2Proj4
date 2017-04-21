@@ -13,6 +13,14 @@ public class Scr_BoatShell : Shell_indv {
 
     [SerializeField]
     private Camera boatcam;
+    [SerializeField]
+    private Camera maincam;
+
+    void Start()
+    {
+        boatcam.enabled = false;
+        maincam = Camera.main;
+    }
 
     public void CalledByPlayer()
     {
@@ -22,7 +30,7 @@ public class Scr_BoatShell : Shell_indv {
         Debug.Log("boat recieved call");
         //call soundmanager boat noises
 
-
+        boatcam.enabled = true;
         playercrab.transform.position = playerpos.position;
         playercrab.transform.rotation = playerpos.rotation;
         playercrab.transform.SetParent(playerpos);

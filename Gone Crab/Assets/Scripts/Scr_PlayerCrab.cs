@@ -19,6 +19,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private QuickStart quickstart;
     [SerializeField]
     private GameObject ExplosionPrefab;
+
+    [SerializeField]
+    private Animation Walk;
     #endregion
 
     #region Serialized Fields
@@ -122,6 +125,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
         }
 
         TimeTaken += Time.deltaTime;
+
+        Walk["Take001"].speed = 1 + (transform.localScale.x * 0.1f);
+
     }
 
     void FixedUpdate()

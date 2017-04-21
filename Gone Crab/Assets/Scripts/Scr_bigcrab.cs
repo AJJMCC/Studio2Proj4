@@ -12,11 +12,16 @@ public class Scr_bigcrab : MonoBehaviour {
 
     private bool toldtorun;
     private bool running = false;
-    private Vector3 movetopos; 
+    private Vector3 movetopos;
+    [SerializeField]
+    private float activedistance = 35;
+
+    [SerializeField]
+    private float playersizescared = 10.5f;
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         playercrab = GameObject.FindGameObjectWithTag("Player");
         thisanim = this.GetComponent<Animator>();
@@ -30,12 +35,12 @@ public class Scr_bigcrab : MonoBehaviour {
     {
         Pdist = Vector3.Distance(this.transform.position, playercrab.transform.position);
 
-        if (Pdist <= 35 && playercrab.transform.localScale.x < 11)
+        if (Pdist <= activedistance && playercrab.transform.localScale.x < playersizescared)
         {
             thisanim.SetTrigger("Raise claws");
         }
 
-        else if (Pdist <= 35 && playercrab.transform.localScale.x >= 11)
+        else if (Pdist <= activedistance && playercrab.transform.localScale.x >= playersizescared)
         {
             if (!toldtorun)
             {
