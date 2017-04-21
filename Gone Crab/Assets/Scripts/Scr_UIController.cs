@@ -45,10 +45,7 @@ public class Scr_UIController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        PlayOpenLoad = PlayerPrefs.GetInt("ShowLoadClose", 0);
-
-        if (PlayOpenLoad == 1)
-            OpenLoadScreen(false);
+        OpenLoadScreen(false);
 
         // Load Options
         Sensitivity = PlayerPrefs.GetInt("LookSensitivity", 3);

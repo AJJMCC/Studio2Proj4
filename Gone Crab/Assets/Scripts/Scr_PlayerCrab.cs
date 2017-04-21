@@ -20,8 +20,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     [SerializeField]
     private GameObject ExplosionPrefab;
 
-    [SerializeField]
-    private Animation Walk;
+    //[SerializeField]
+    //private AnimationClip Walk;
     #endregion
 
     #region Serialized Fields
@@ -125,8 +125,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
         }
 
         TimeTaken += Time.deltaTime;
+        SaveStats();
 
-        Walk["Take001"].speed = 1 + (transform.localScale.x * 0.1f);
+        //Walk["Take001"].speed = 1 + (transform.localScale.x * 0.1f);
 
     }
 
@@ -471,7 +472,6 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void EndGame1()
     {
-        SaveStats();
         this.GetComponent<SCR_GameEnder>().EndGame();
     }
 
