@@ -352,10 +352,12 @@ namespace Exploder
             deactivateTimer = settings.FragmentDeactivation.DeactivateTimeout;
             originalScale = transform.localScale;
 
+            /*
             if (settings.FragmentOptions.ExplodeFragments)
             {
                 tag = ExploderObject.Tag;
             }
+            */
 
             Emit(true);
         }
