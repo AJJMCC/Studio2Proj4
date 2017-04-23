@@ -12,6 +12,7 @@ public class Scr_soundmanager : MonoBehaviour {
     public AudioClip fallingSound;
     public AudioClip sandWalk;
     public AudioClip rockWalk;
+    public float maxWalkVol;
 
     //Use this for initialization
 	void Start ()
@@ -61,9 +62,9 @@ public class Scr_soundmanager : MonoBehaviour {
     // Lerp the audio source volume between 0 and 1 depending on whether or not the player in moving
     public void ChangeWalkVol(bool isWalking)
     {
-        if (isWalking && walkSound.volume != 1)
+        if (isWalking && walkSound.volume != maxWalkVol)
         {
-            walkSound.volume = 1;
+            walkSound.volume = maxWalkVol;
         }
         else if (!isWalking && walkSound.volume != 0)
         {

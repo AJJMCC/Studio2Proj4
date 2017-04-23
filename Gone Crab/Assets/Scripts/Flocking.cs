@@ -10,7 +10,7 @@ public class Flocking : MonoBehaviour {
     
     public float speedAdjustment;
     public int CheckOtherNumber = 3;
-    Collider[] ObjectsHit;
+    public Collider[] ObjectsHit;
 
     public float CheckOtherSearchRadius;
     public bool AlignWithOther = false;
@@ -74,8 +74,8 @@ public class Flocking : MonoBehaviour {
         //check for other objects within range
         Physics.OverlapSphereNonAlloc(transform.position, CheckOtherSearchRadius, ObjectsHit);
         
-            foreach (Collider CObject in ObjectsHit)
-            {
+        foreach (Collider CObject in ObjectsHit)
+        {
             //make sure where not hitting ourself
             if (CObject.transform.position != transform.position)
             {
@@ -131,7 +131,8 @@ public class Flocking : MonoBehaviour {
                 //adding break here increased performance massivly
             }
             //testing to see if the birds put different birds in there storage 
-            System.Array.Clear(ObjectsHit, 0, CheckOtherNumber);
+            //System.Array.Clear(ObjectsHit, 0, ObjectsHit.Length);
+            //ObjectsHit = new Collider[CheckOtherNumber];
         }
         /////////////
        
