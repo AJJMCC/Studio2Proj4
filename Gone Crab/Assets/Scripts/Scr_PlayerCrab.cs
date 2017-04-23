@@ -97,6 +97,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         dialogueController = FindObjectOfType<Scr_Dialogue>();
         rb = this.GetComponent<Rigidbody>();
         SetCrabSize(0);
@@ -439,7 +441,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             {
                 dialogueController.DisplayLine(3);
             }
-            else if (this.transform.localScale.x >= maxSize)
+            else if (this.transform.localScale.x >= maxSize - 0.5f) 
             {
                 otherObj.collider.isTrigger = true;
             }
@@ -472,6 +474,9 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void EndGame1()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         this.GetComponent<SCR_GameEnder>().EndGame();
     }
 

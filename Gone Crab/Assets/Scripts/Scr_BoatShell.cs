@@ -24,6 +24,7 @@ public class Scr_BoatShell : Shell_indv {
 
     public void CalledByPlayer()
     {
+        CanvasFlash.Instance.Flash = true;
         playercrab = GameObject.FindGameObjectWithTag("Player");
        // StartCoroutine("crabtoboat");
         moving = true;
@@ -35,6 +36,20 @@ public class Scr_BoatShell : Shell_indv {
         playercrab.transform.rotation = playerpos.rotation;
         playercrab.transform.SetParent(playerpos);
         boatcam = Camera.main;
+       
+        Invoke("TurnOffFlash", 0.1f);
+        Invoke("TurnOnSlowFlash", 1.6f);
+    }
+
+
+    void TurnOffFlash()
+    {
+        CanvasFlash.Instance.Flash = false;
+    }
+
+    void TurnOnSlowFlash()
+    {
+        CanvasFlash.Instance.SlowFlash = true;
     }
 
      void Update()
