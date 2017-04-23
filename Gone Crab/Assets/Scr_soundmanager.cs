@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scr_soundmanager : MonoBehaviour {
     public static Scr_soundmanager Instance;
     public AudioSource VFX;
+    public AudioSource walkSound;
     public AudioClip shelloff;
     public AudioClip shellon;
     public AudioClip SizzleLoop;
@@ -21,14 +22,7 @@ public class Scr_soundmanager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		//if (Input.GetKeyDown("w"))
-  //      {
-  //          ChangeWalkClip(0);
-  //      }
-  //      else if (Input.GetKeyDown("s"))
-  //      {
-  //          ChangeWalkClip(1);
-  //      }
+        
 	}
 
     // Plays the shell on clip
@@ -52,20 +46,28 @@ public class Scr_soundmanager : MonoBehaviour {
     // Checks what the current clip is and changes it accordingly
     public void ChangeWalkClip(int walkType)
     {
-        if (walkType == 0)
+        if (walkType == 0 && walkSound.clip != rockWalk)
         {
-            VFX.clip = rockWalk;
-            VFX.Play();
+            walkSound.clip = rockWalk;
+            walkSound.Play();
         }
-        else
+        else if (walkType == 1 && walkSound.clip != sandWalk)
         {
-            VFX.clip = sandWalk;
-            VFX.Play();
+            walkSound.clip = sandWalk;
+            walkSound.Play();
         }
     }
 
-    public void WalkVolume(float walkSpeed)
+    // Lerp the audio source volume between 0 and 1 depending on whether or not the player in moving
+    public void ChangeWalkVol(bool isWalking)
     {
-        VFX.volume = walkSpeed;
+        if (isWalking && walkSound.volume != 1)
+        {
+            walkSound.volume = 1;
+        }
+        else if (!isWalking && walkSound.volume != 0)
+        {
+            walkSound.volume = 0;
+        }
     }
 }

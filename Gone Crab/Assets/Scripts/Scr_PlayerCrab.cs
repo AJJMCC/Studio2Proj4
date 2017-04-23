@@ -124,6 +124,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
             FallDamageUpdate();
             // Baby gon do the first worderinos <3 <3
             DialougeUpdate();
+            // Check the ground
+            CheckGround();
         }
 
         TimeTaken += Time.deltaTime;
@@ -164,7 +166,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
             bMoving = true;
         }
         MyAnim.SetBool("Walking", bMoving);
-       
+        Scr_soundmanager.Instance.ChangeWalkVol(bMoving);
 
         // Movement & Rotation
         if (bMoving)
@@ -487,5 +489,21 @@ public class Scr_PlayerCrab : MonoBehaviour {
             PlayerPrefs.SetString("Time", "Time: 999s");
         else
             PlayerPrefs.SetString("Time", "Time: " + Mathf.Floor(TimeTaken).ToString() + "s");
+    }
+
+    void CheckGround()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        {
+            if (hit.transform.tag == "Sand")
+            {
+                Scr_soundmanager.Instance.ChangeWalkClip(1);
+            }
+            else if (hit.transform.tag == "bigrock" || hit.transform.tag == "smallrock")
+            {
+                Scr_soundmanager.Instance.ChangeWalkClip(0);
+            }
+        }
     }
 }
