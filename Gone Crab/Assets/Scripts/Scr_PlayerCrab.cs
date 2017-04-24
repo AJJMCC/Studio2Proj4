@@ -90,6 +90,15 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private float ControlY;
 
     private float TimeTaken = 0.0f;
+
+    public bool bPlayedTut01 = false;
+    private bool bPlayedTut02 = false;
+
+    [SerializeField]
+    private GameObject Tut00;
+    public GameObject Tut01;
+    [SerializeField]
+    private GameObject Tut02;
     #endregion
 
     public bool bControlLocked = false;
@@ -103,6 +112,8 @@ public class Scr_PlayerCrab : MonoBehaviour {
         rb = this.GetComponent<Rigidbody>();
         SetCrabSize(0);
         BurnTimer = BurnTimerMax;
+        Tut00.SetActive(true);
+        Tut00.GetComponent<Animation>().Play();
     }
 	
 	// Update is called once per frame
@@ -183,12 +194,12 @@ public class Scr_PlayerCrab : MonoBehaviour {
     // Handles Shell equipping and dropping when manually called by the player.
     void ShellInteract()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetAxis("ShellOn") > 0.25)
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Joystick1Button5) || Input.GetAxis("ShellOn") > 0.25)
         {
             Debug.Log("ShellOn");
             PickupShell();
         }
-        else if (Input.GetMouseButtonDown(1) || Input.GetAxis("ShellOff") > 0.25)
+        else if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick1Button4) || Input.GetAxis("ShellOff") > 0.25)
         {
             Debug.Log("ShellOff");
             RemoveShell(false);
@@ -197,7 +208,7 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void OtherInteract()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Joystick1Button5) || Input.GetAxis("ShellOn") > 0.25)
             Interactable();
     }
 
@@ -254,6 +265,13 @@ public class Scr_PlayerCrab : MonoBehaviour {
                     Scr_AnalyticController.Analytics.ReportOnShell(MyShell.ShellState());
                     Scr_AnalyticController.Analytics.CheckTimeSpentNaked();
                 }
+
+                if(!bPlayedTut02)
+                {
+                    bPlayedTut02 = true;
+                    Tut02.SetActive(true);
+                    Tut02.GetComponent<Animation>().Play();
+                }
             }
         }
     }
@@ -300,10 +318,10 @@ public class Scr_PlayerCrab : MonoBehaviour {
         {
             if (!ShellDoneLerp)
             {
-                MyShell.gameObject.transform.position = Vector3.Lerp(MyShell.gameObject.transform.position, ShellSocket.transform.position, ShellLerpSpeed * this.transform.localScale.x * Time.deltaTime);
-                MyShell.gameObject.transform.rotation = Quaternion.Lerp(MyShell.gameObject.transform.rotation, ShellSocket.transform.rotation, ShellLerpSpeed * this.transform.localScale.x * Time.deltaTime);
+                MyShell.gameObject.transform.position = Vector3.Lerp(MyShell.gameObject.transform.position, ShellSocket.transform.position, ShellLerpSpeed * Time.deltaTime);
+                MyShell.gameObject.transform.rotation = Quaternion.Lerp(MyShell.gameObject.transform.rotation, ShellSocket.transform.rotation, ShellLerpSpeed * Time.deltaTime);
 
-                if (Vector3.Distance(MyShell.gameObject.transform.position, ShellSocket.transform.position) < ShellLockDistance * this.transform.localScale.x)
+                if (Vector3.Distance(MyShell.gameObject.transform.position, ShellSocket.transform.position) < ShellLockDistance)
                     ShellDoneLerp = true;
             }
             else
@@ -439,11 +457,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
     {
         if (otherObj.transform.tag == "EndBound")
         {
-            if (this.transform.localScale.x < maxSize)
+            if (this.transform.localScale.x < maxSize - 1.0f)
             {
                 dialogueController.DisplayLine(3);
             }
-            else if (this.transform.localScale.x >= maxSize - 0.5f) 
+            else if (this.transform.localScale.x >= maxSize - 1.0f) 
             {
                 otherObj.collider.isTrigger = true;
             }
@@ -484,7 +502,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
 
     void SaveStats()
     {
-        PlayerPrefs.SetString("Size", "Size: " + Mathf.Floor(this.transform.localScale.x - 0.1f).ToString() + "/10");
+        if (this.transform.localScale.x - 0.01f > 10.01)
+            PlayerPrefs.SetString("Size", "Size: 10/10");
+        else
+            PlayerPrefs.SetString("Size", "Size: " + Mathf.Floor(this.transform.localScale.x - 0.01f).ToString() + "/10");
+
         if(TimeTaken >= 999.0f)
             PlayerPrefs.SetString("Time", "Time: 999s");
         else

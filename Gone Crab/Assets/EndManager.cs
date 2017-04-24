@@ -19,8 +19,8 @@ public class EndManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        time.text = PlayerPrefs.GetString("Size");
-        size.text = PlayerPrefs.GetString("Time");
+        time.text = PlayerPrefs.GetString("Size", "ERR");
+        size.text = PlayerPrefs.GetString("Time", "ERR");
 
     }
 	

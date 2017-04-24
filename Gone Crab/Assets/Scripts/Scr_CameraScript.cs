@@ -28,13 +28,13 @@ public class Scr_CameraScript : MonoBehaviour
 
     Quaternion originalRotation;
 
-    private int Sensitivity = 3;
+    private float Sensitivity = 3;
     private bool Inverted = false;
 
     void Start()
     {
         // Load Options
-        Sensitivity = PlayerPrefs.GetInt("LookSensitivity", 3) + 1;
+        Sensitivity = (PlayerPrefs.GetInt("LookSensitivity", 3) + 1) * 0.9f;
 
         sensitivityX = Sensitivity * sensitivityX;
         sensitivityY = Sensitivity * sensitivityY;

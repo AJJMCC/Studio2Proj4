@@ -47,6 +47,13 @@ public class Shell_indv : MonoBehaviour {
 
         ChecksAgainstPlayer();
         PrettyLights();
+
+        if(Pdistance < ActiveDistance && !player.GetComponent<Scr_PlayerCrab>().bPlayedTut01)
+        {
+            player.GetComponent<Scr_PlayerCrab>().bPlayedTut01 = true;
+            player.GetComponent<Scr_PlayerCrab>().Tut01.SetActive(true);
+            player.GetComponent<Scr_PlayerCrab>().Tut01.GetComponent<Animation>().Play();
+        }
 	}
 
     private void ChecksAgainstPlayer()

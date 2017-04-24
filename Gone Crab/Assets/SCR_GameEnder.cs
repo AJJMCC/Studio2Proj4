@@ -19,6 +19,6 @@ public class SCR_GameEnder : MonoBehaviour {
     public void EndGame()
     {
         rend.SetColor("_Color", StartCol);
-        Application.LoadLevel("End Scene");
+        FindObjectOfType<Scr_UIController>().LoadScene(2);
     }
 }
