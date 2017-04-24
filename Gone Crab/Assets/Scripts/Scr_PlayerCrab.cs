@@ -71,6 +71,11 @@ public class Scr_PlayerCrab : MonoBehaviour {
     private Vector3 WaterResistanceVector = new Vector3(100, 10, 0);
     [SerializeField]
     private GameObject TailMesh;
+
+    [SerializeField]
+    private float CrabShelledWalkAnimSpeed = 1.5f;
+    [SerializeField]
+    private float CrabUnshelledWalkAnimSpeed = 2.0f;
     #endregion
 
     #region Private Variables
@@ -330,9 +335,16 @@ public class Scr_PlayerCrab : MonoBehaviour {
                 MyShell.gameObject.transform.position = ShellSocket.transform.position;
                 MyShell.gameObject.transform.rotation = ShellSocket.transform.rotation;
             }
+
+            MyAnim.speed = CrabShelledWalkAnimSpeed;
         }
-        else if(Scr_AnalyticController.Analytics)
-            Scr_AnalyticController.Analytics.CurrentTimeSpentWithoutShell += Time.deltaTime;
+        else
+        {
+            if (Scr_AnalyticController.Analytics)
+                Scr_AnalyticController.Analytics.CurrentTimeSpentWithoutShell += Time.deltaTime;
+
+            MyAnim.speed = CrabUnshelledWalkAnimSpeed;
+        }
     }
 
     void SetCrabSize(float newSize)
