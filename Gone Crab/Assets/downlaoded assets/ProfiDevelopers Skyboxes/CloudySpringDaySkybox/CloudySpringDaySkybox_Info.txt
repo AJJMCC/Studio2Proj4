@@ -1,0 +1,5 @@
+//ZenuS 3DO 2012 v1.0
+//Cloudy Spring Day Skybox
+//Key words: art texture material skies skybox sky cloudy spring day
+- The textures are imported at 512x512 to speed up the import process, but the original files are now 8192x4096 and can be re-imported up to size 2048 for higher quality.
+- The package also contains prepared material skybox and a cubemap. 
