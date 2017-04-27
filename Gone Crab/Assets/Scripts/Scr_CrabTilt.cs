@@ -26,6 +26,9 @@ public class Scr_CrabTilt : MonoBehaviour {
 
     private Vector3 upDir;
 
+    public int NumStoredFrames = 60;
+    private List<Vector3> StoredAngles = new List<Vector3>();
+
     void Update()
     {
         if (!Crabref.bControlLocked)
@@ -47,7 +50,13 @@ public class Scr_CrabTilt : MonoBehaviour {
                      Vector3.Cross(rf.point - Vector3.up, rr.point - Vector3.up)
                     ).normalized;
 
-            transform.up = Vector3.Lerp(transform.up, upDir, TiltSpeed * Time.deltaTime);
+            StoredAngles.Add(upDir);
+            if(StoredAngles.Count > NumStoredFrames)
+            {
+                StoredAngles.RemoveAt(0);
+            }
+
+            transform.up = Vector3.Lerp(ReturnAverage(), upDir, TiltSpeed * Time.deltaTime);
 
             //Reset Y Rot
             Vector3 newAngles = transform.rotation.eulerAngles;
@@ -61,5 +70,19 @@ public class Scr_CrabTilt : MonoBehaviour {
             Debug.DrawRay(lf.point, Vector3.up, Color.white);
             Debug.DrawRay(rf.point, Vector3.up, Color.white);
         }
+    }
+
+    private Vector3 ReturnAverage()
+    {
+        Vector3 v = new Vector3(0,0,0);
+
+        foreach (Vector3 vec in StoredAngles)
+        {
+            v += vec;
+        }
+
+        v = v / StoredAngles.Count;
+
+        return v;
     }
 }
